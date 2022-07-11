@@ -40,7 +40,7 @@ def cross_reference_and_mutant(reference, mutant, progeny=200):
             else:
                 child = child + mutant[j]
         children.append(child)
-        if child[5] == mutant[5]:
+        if child[5] == reference[5]:
             phenotype.append("Green")
         else:
             phenotype.append("LightGreen")
@@ -71,7 +71,7 @@ def cross_reference_and_mutant(reference, mutant, progeny=200):
             plt.axis("off")
             plt.imshow(image_dash)
     plt.show()
-    
+
     return children
 
 def bulk_sequencing(progeny):
@@ -102,6 +102,7 @@ def alignment(reads, reference):
     for i in range(reads.shape[0]):
         tmp_df["read{}".format(i)] = list("-"*reads.iloc[i, 1] + reads.iloc[i, 0] + "-"*(10-reads.iloc[i, 1]))
     tmp_df = tmp_df.T
+    display(tmp_df)
     return tmp_df
 
 def calculate_SNP_index(alignment_result, reference, mutant):
