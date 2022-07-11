@@ -1,13 +1,3 @@
-import random
-import copy
-import pandas as pd
-import numpy as np
-from PIL import Image
-import matplotlib.pyplot  as plt
-import seaborn as sns
-import requests
-import io
-
 def make_mutant(reference):
     mutant = list(copy.copy(reference))
     mut_pos = [5]
