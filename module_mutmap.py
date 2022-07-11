@@ -71,6 +71,8 @@ def cross_reference_and_mutant(reference, mutant, progeny=200):
             plt.axis("off")
             plt.imshow(image_dash)
     plt.show()
+    
+    return children
 
 def bulk_sequencing(progeny):
     mutants = progeny[progeny["Phenotype"] == "LightGreen"]
