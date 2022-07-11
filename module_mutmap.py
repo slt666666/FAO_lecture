@@ -20,9 +20,6 @@ def make_mutant(reference):
         mutant[mut_pos[i]] = random.choice(mutants)
     mutant = "".join(mutant)
 
-    print("reference genotype: ", reference)
-    print("   mutant genotype: ", mutant)
-
     with open("reference_sequences.fasta", mode='w') as f:
         f.write(">reference\n")
         f.write("{}\n".format(reference))
@@ -102,7 +99,6 @@ def alignment(reads, reference):
     for i in range(reads.shape[0]):
         tmp_df["read{}".format(i)] = list("-"*reads.iloc[i, 1] + reads.iloc[i, 0] + "-"*(10-reads.iloc[i, 1]))
     tmp_df = tmp_df.T
-    display(tmp_df)
     return tmp_df
 
 def calculate_SNP_index(alignment_result, reference, mutant):
@@ -123,7 +119,6 @@ def calculate_SNP_index(alignment_result, reference, mutant):
     table_df["ref_num"] = ref_num
     table_df["mut_num"] = mut_num
     table_df["SNP_index"] = table_df["mut_num"] / (table_df["mut_num"] + table_df["ref_num"])
-    display(table_df)
     return table_df
 
 def visualize_SNP_index(SNP_index):
