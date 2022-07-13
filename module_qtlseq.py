@@ -85,3 +85,76 @@ def high_and_low_bulk_sequencing(progeny, top=20, bottom=20, reads=500):
         for i in range(high_reads.shape[0]):
             f.write(">read{}\n".format(i))
             f.write("{}\n".format(high_reads.iloc[i, 0]))
+
+    return high_reads, low_reads
+
+def alignment(high_reads, low_reads, cultivar_A):
+    low_df = pd.DataFrame(list(cultivar_A))
+    low_df.columns = ["Reference"]
+    low_reads = low_reads.sort_values(by=1)
+    for i in range(low_reads.shape[0]):
+        low_df["read{}".format(i)] = list("-"*low_reads.iloc[i, 1] + low_reads.iloc[i, 0] + "-"*(90-low_reads.iloc[i, 1]))
+    low_df = low_df.T
+
+    high_df = pd.DataFrame(list(cultivar_A))
+    high_df.columns = ["Reference"]
+    high_reads = high_reads.sort_values(by=1)
+    for i in range(high_reads.shape[0]):
+        high_df["read{}".format(i)] = list("-"*high_reads.iloc[i, 1] + high_reads.iloc[i, 0] + "-"*(90-high_reads.iloc[i, 1]))
+    high_df = high_df.T
+
+    return high_df, low_df
+
+def calculate_SNP_index(high_bulk_alignment_result, low_bulk_alignment_result):
+    low_table_df = pd.DataFrame(list(cultivar_A))
+    low_table_df.columns = ["cultivarA"]
+    low_table_df["cultivarB"] = pd.DataFrame(list(cultivar_B))
+    ref_num = []
+    mut_num = []
+    for i in range(low_bulk_alignment_result.shape[1]):
+        tmp = low_bulk_alignment_result.iloc[1:, i]
+        tmp = list(tmp[tmp != "-"].values)
+        if cultivar_A[i] != cultivar_B[i]:
+            ref_num.append(tmp.count(cultivar_A[i]))
+            mut_num.append(tmp.count(cultivar_B[i]))
+        else:
+            ref_num.append(tmp.count(cultivar_A[i]))
+            mut_num.append(0)
+    low_table_df["ref_num"] = ref_num
+    low_table_df["mut_num"] = mut_num
+    low_table_df["SNP_index"] = low_table_df["mut_num"] / (low_table_df["mut_num"] + low_table_df["ref_num"])
+
+    high_table_df = pd.DataFrame(list(cultivar_A))
+    high_table_df.columns = ["cultivarA"]
+    high_table_df["cultivarB"] = pd.DataFrame(list(cultivar_B))
+    ref_num = []
+    mut_num = []
+    for i in range(high_bulk_alignment_result.shape[1]):
+        tmp = high_bulk_alignment_result.iloc[1:, i]
+        tmp = list(tmp[tmp != "-"].values)
+        if cultivar_A[i] != cultivar_B[i]:
+            ref_num.append(tmp.count(cultivar_A[i]))
+            mut_num.append(tmp.count(cultivar_B[i]))
+        else:
+            ref_num.append(tmp.count(cultivar_A[i]))
+            mut_num.append(0)
+    high_table_df["ref_num"] = ref_num
+    high_table_df["mut_num"] = mut_num
+    high_table_df["SNP_index"] = high_table_df["mut_num"] / (high_table_df["mut_num"] + high_table_df["ref_num"])
+    
+    return high_table_df, low_table_df
+
+def visualize_SNP_index(high_bulk_SNP_index, low_bulk_SNP_index):
+    sns.set()
+    x = high_bulk_SNP_index.index.values
+    y = high_bulk_SNP_index.SNP_index.values
+    y2 = low_bulk_SNP_index.SNP_index.values
+    plt.xticks(range(high_bulk_SNP_index.shape[0]), range(1, high_bulk_SNP_index.shape[0]+1))
+    plt.scatter(x, y)
+    plt.title("High bulk SNP-index")
+    plt.show()
+    plt.clf()
+
+    plt.scatter(x, y2)
+    plt.title("Low bulk SNP-index")
+    plt.show()
