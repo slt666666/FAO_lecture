@@ -26,7 +26,7 @@ def make_F2_progeny(cultivar_A, cultivar_B, progeny=200):
         if j != cultivar_B[i]:
             mut_pos.append(i)
 
-    mut_effect = [random.uniform(-2.5, 2.5) for i in range(20)]
+    mut_effect = [random.uniform(-2.5, 2.5) for i in range(len(mut_pos))]
     mut_effect[5] = 10
 
     pd.DataFrame({"Position": mut_pos, "Simulated_SNP_effect":mut_effect}).to_csv("../SNP_effect.csv")
