@@ -29,6 +29,8 @@ def make_F2_progeny(cultivar_A, cultivar_B, progeny=200):
     mut_effect = [random.uniform(-2.5, 2.5) for i in range(20)]
     mut_effect[5] = 10
 
+    pd.DataFrame({"Position": mut_pos, "Effect":mut_effect}).to_csv("../SNP_effect.csv")
+
     children = []
     phenotype = []
     for i in range(200):
@@ -171,4 +173,9 @@ def visualize_delta_SNP_index(delta_SNP_index):
     x = delta_SNP_index.index.values
     y = delta_SNP_index.delta_SNP_index.values
     plt.scatter(x, y)
+
+    tmp = delta_SNP_index[delta_SNP_index["delta_SNP_index"] == 1]
+    x = tmp.index.values
+    y = tmp.delta_SNP_index.values
+    plt.scatter(x, y, color="red")
     plt.show()
