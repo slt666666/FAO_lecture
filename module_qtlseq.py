@@ -105,7 +105,7 @@ def alignment(high_reads, low_reads, cultivar_A):
 
     return high_df, low_df
 
-def calculate_SNP_index(high_bulk_alignment_result, low_bulk_alignment_result):
+def calculate_SNP_index(high_bulk_alignment_result, low_bulk_alignment_result, reference=cultivar_A):
     low_table_df = pd.DataFrame(list(cultivar_A))
     low_table_df.columns = ["cultivarA"]
     low_table_df["cultivarB"] = pd.DataFrame(list(cultivar_B))
