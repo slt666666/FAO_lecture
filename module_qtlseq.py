@@ -198,7 +198,7 @@ def sliding_window(SNP_index, window_size=1 * 1000 * 1000, step_size = 0.2 * 100
     y_win = []
 
     start = 1
-    end  = start + win_size - 1
+    end  = start + window_size - 1
 
     while True:
         sub = SNP_index[ (SNP_index["POS"]>=start) & (SNP_index["POS"]<=end) ]
