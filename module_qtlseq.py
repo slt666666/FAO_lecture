@@ -36,8 +36,11 @@ def make_F2_progeny(cultivar_A, cultivar_B, progeny=200):
     for i in range(200):
         child = list(copy.copy(cultivar_A))
         phen = 40
+        key = False
         for mut_i, j in enumerate(mut_pos):
             if random.random() > 0.5:
+                key = not key
+            if key:
                 child[j] = cultivar_B[j]
                 phen = phen + mut_effect[mut_i]
         phen += random.uniform(-1, 1)
