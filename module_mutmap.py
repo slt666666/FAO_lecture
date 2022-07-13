@@ -131,6 +131,7 @@ def calculate_SNP_index(alignment_result, reference, mutant):
     table_df["ref_num"] = ref_num
     table_df["mut_num"] = mut_num
     table_df["SNP_index"] = table_df["mut_num"] / (table_df["mut_num"] + table_df["ref_num"])
+    table_df.index = table_df.index.values + 1
     return table_df
 
 def visualize_SNP_index(SNP_index):
