@@ -150,16 +150,18 @@ def calculate_SNP_index(high_bulk_alignment_result, low_bulk_alignment_result, c
 
 def visualize_SNP_index(high_bulk_SNP_index, low_bulk_SNP_index):
     sns.set()
+    fig = plt.figure()
+    ax1 = fig.add_subplot(1, 2, 1)
+    ax2 = fig.add_subplot(1, 2, 2)
+
     x = high_bulk_SNP_index.index.values
     y = high_bulk_SNP_index.SNP_index.values
     y2 = low_bulk_SNP_index.SNP_index.values
-    plt.scatter(x, y, color="green")
-    plt.title("High bulk SNP-index")
-    plt.show()
-    plt.clf()
+    ax1.scatter(x, y, color="green")
+    ax1.title("High bulk SNP-index")
 
-    plt.scatter(x, y2, color="orange")
-    plt.title("Low bulk SNP-index")
+    ax2.scatter(x, y2, color="orange")
+    ax2.title("Low bulk SNP-index")
     plt.show()
 
 
@@ -184,4 +186,4 @@ def check_results(delta_SNP_index):
     SNP_effect = pd.read_csv("../SNP_effect.csv", index_col=0)
     SNP_effect = SNP_effect.set_index("Position")
     SNP_effect["delta_SNP_index"] = delta_SNP_index.delta_SNP_index.values
-    return SNP_effect
+    return SNP_effect.reset_index()
