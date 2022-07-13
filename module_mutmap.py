@@ -150,7 +150,7 @@ def check_results(reference):
     children_sample.index = ["children"+str(i) for i in range(children_sample.shape[0])]
     display(children_sample)
 
-def sliding_window(window_size=1 * 1000 * 1000, step_size = 0.2 * 1000 * 1000):
+def sliding_window(SNP_index, window_size=1 * 1000 * 1000, step_size = 0.2 * 1000 * 1000):
     chrom_size = 23207287
 
     x_win = []
@@ -161,7 +161,7 @@ def sliding_window(window_size=1 * 1000 * 1000, step_size = 0.2 * 1000 * 1000):
     end  = start + win_size - 1
 
     while True:
-        sub = df[ (df["POS"]>=start) & (df["POS"]<=end) ]
+        sub = SNP_index[ (SNP_index["POS"]>=start) & (SNP_index["POS"]<=end) ]
         p = sub["POS"].mean()
         s = sub["SNP_index"].mean()
         x_win.append(p)
