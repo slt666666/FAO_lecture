@@ -187,3 +187,13 @@ def visualize_SNP_index2(SNP_index):
     plt.scatter(x2, y2, color="red")
 
     plt.show()   
+
+def MutMap_simulation(length=100, mutation=20, progeny=200, read=1000):
+    reference, mutant = make_reference_and_mutant(length=length, mutation=mutation)
+    progeny = cross_reference_and_mutant(reference, mutant, progeny=progeny)
+    reads = bulk_sequencing(progeny, read=read)
+    alignment_result = alignment(reads, reference)
+    SNP_index = calculate_SNP_index(alignment_result, reference, mutant)
+    display(SNP_index)
+    visualize_SNP_index(SNP_index)
+    check_results(reference)

@@ -249,10 +249,10 @@ def sliding_window(SNP_index, window_size=1 * 1000 * 1000, step_size = 0.2 * 100
     return result
 
 def qtl_seq_simulation(length=100, snp=40, progeny=200, reads=500):
-    cultivar_A, cultivar_B = make_2_cultivars(length=100, snp=40)
-    f2_progeny = make_F2_progeny(cultivar_A, cultivar_B, progeny=200)
+    cultivar_A, cultivar_B = make_2_cultivars(length=length, snp=snp)
+    f2_progeny = make_F2_progeny(cultivar_A, cultivar_B, progeny=progeny)
     check_distribution(f2_progeny)
-    high_reads, low_reads = high_and_low_bulk_sequencing(f2_progeny, top=20, bottom=20, reads=500)
+    high_reads, low_reads = high_and_low_bulk_sequencing(f2_progeny, top=20, bottom=20, reads=reads)
     high_bulk_alignment_result, low_bulk_alignment_result = alignment(high_reads, low_reads, cultivar_A)
     high_bulk_SNP_index, low_bulk_SNP_index = calculate_SNP_index(high_bulk_alignment_result, low_bulk_alignment_result, cultivar_A, cultivar_B)
     delta_SNP_index = calculate_delta_SNP_index(high_bulk_SNP_index, low_bulk_SNP_index)
