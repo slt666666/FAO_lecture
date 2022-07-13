@@ -188,3 +188,39 @@ def check_results(delta_SNP_index):
     SNP_effect = SNP_effect.set_index("Position")
     SNP_effect["delta_SNP_index"] = delta_SNP_index.delta_SNP_index.values
     return SNP_effect.reset_index()
+
+
+def sliding_window(SNP_index, window_size=1 * 1000 * 1000, step_size = 0.2 * 1000 * 1000):
+    chrom_size = 23207287
+
+    x_win = []
+    x = []
+    y_win = []
+
+    start = 1
+    end  = start + win_size - 1
+
+    while True:
+        sub = SNP_index[ (SNP_index["POS"]>=start) & (SNP_index["POS"]<=end) ]
+        p = sub["POS"].mean()
+        s = sub["SNP_index"].mean()
+        x_win.append(p)
+        x.append([start, end])
+        y_win.append(s)
+
+        start = start + step_size
+        end  = end  + step_size
+
+        if end > chrom_size:
+            break
+
+    plt.figure(figsize=[12,4])
+    plt.scatter(x, y)
+    plt.plot(x_win, y_win, color="red")
+    plt.title('SNP-index on chromosome 10', fontsize=18)
+    plt.xlabel('Position (x 10 Mb)', fontsize=12)
+    plt.ylabel('SNP-index', fontsize=12)
+    plt.show()
+
+    result = pd.DataFrame({"Window":x, "average SNP-index":y_win})
+    return result
