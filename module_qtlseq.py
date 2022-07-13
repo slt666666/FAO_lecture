@@ -159,7 +159,7 @@ def visualize_SNP_index(high_bulk_SNP_index, low_bulk_SNP_index):
         color = ["green", "orange"]; titles = ["High bulk SNP-index", "Low bulk SNP-index"]
         ax[i].scatter(x, y, color=color[i])
         ax[i].set_title(titles[i], fontsize=16)
-        ax[i].set_ylim(0, 1)
+        ax[i].set_ylim(-0.05, 1.05)
     plt.show()
 
 def calculate_delta_SNP_index(high_bulk_SNP_index, low_bulk_SNP_index):
@@ -177,7 +177,7 @@ def visualize_delta_SNP_index(delta_SNP_index):
     x = tmp.index.values
     y = tmp.delta_SNP_index.values
     plt.scatter(x, y, color="red")
-    plt.ylim(-1, 1)
+    plt.ylim(-1.05, 1.05)
     plt.show()
 
 def check_results(delta_SNP_index):
