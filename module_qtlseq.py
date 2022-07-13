@@ -142,8 +142,8 @@ def calculate_SNP_index(high_bulk_alignment_result, low_bulk_alignment_result, c
     high_table_df["mut_num"] = mut_num
     high_table_df["SNP_index"] = high_table_df["mut_num"] / (high_table_df["mut_num"] + high_table_df["ref_num"])
     
-    high_table_df = high_table_df[high_table_df["cultivar_A"] != high_table_df["cultivar_B"]]
-    low_table_df = low_table_df[low_table_df["cultivar_A"] != low_table_df["cultivar_B"]]
+    high_table_df = high_table_df[high_table_df["cultivarA"] != high_table_df["cultivarB"]]
+    low_table_df = low_table_df[low_table_df["cultivarA"] != low_table_df["cultivarB"]]
     return high_table_df, low_table_df
 
 def visualize_SNP_index(high_bulk_SNP_index, low_bulk_SNP_index):
