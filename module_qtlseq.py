@@ -150,20 +150,16 @@ def calculate_SNP_index(high_bulk_alignment_result, low_bulk_alignment_result, c
 
 def visualize_SNP_index(high_bulk_SNP_index, low_bulk_SNP_index):
     sns.set()
-    fig = plt.figure()
-    ax1 = fig.add_subplot(1, 2, 1)
-    ax2 = fig.add_subplot(1, 2, 2)
-
-    x = high_bulk_SNP_index.index.values
-    y = high_bulk_SNP_index.SNP_index.values
-    y2 = low_bulk_SNP_index.SNP_index.values
-    ax1.scatter(x, y, color="green")
-    ax1.title("High bulk SNP-index")
-
-    ax2.scatter(x, y2, color="orange")
-    ax2.title("Low bulk SNP-index")
+    row = 1
+    col = 2
+    fig, ax=plt.subplots(row, col, figsize=(12,4))
+    for i, SNP_index in enumerate([high_bulk_SNP_index, low_bulk_SNP_index]): 
+        x = SNP_index.index.values
+        y = SNP_index.SNP_index.values
+        color = ["green", "orange"]; titles = ["High bulk SNP-index", "Low bulk SNP-index"]
+        ax[i].scatter(x, y, color=color[i])
+        ax[i].set_title(title[i], fontsize=16)
     plt.show()
-
 
 def calculate_delta_SNP_index(high_bulk_SNP_index, low_bulk_SNP_index):
     high_bulk_SNP_index["delta_SNP_index"] = high_bulk_SNP_index.SNP_index.values - low_bulk_SNP_index.SNP_index.values
