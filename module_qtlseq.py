@@ -190,7 +190,6 @@ def check_results(delta_SNP_index):
     return SNP_effect.reset_index()
 
 def get_yesterday_SNP_index():
-    !wget -q -O mutmap_dataset.txt https://raw.githubusercontent.com/CropEvol/lecture/master/data/mutmap_chr10.txt
     SNP_index = pd.read_csv("mutmap_dataset.txt", sep=',', header=0)
     SNP_index["SNP_index"] = SNP_index["N_ALT"] / (SNP_index["N_REF"] + SNP_index["N_ALT"])
     return SNP_index
