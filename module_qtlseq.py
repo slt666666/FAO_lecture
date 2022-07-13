@@ -176,7 +176,7 @@ def visualize_delta_SNP_index(delta_SNP_index):
     y = delta_SNP_index.delta_SNP_index.values
     plt.scatter(x, y)
 
-    tmp = delta_SNP_index[delta_SNP_index["delta_SNP_index"] == 1]
+    tmp = delta_SNP_index[delta_SNP_index["delta_SNP_index"] >= 0.9]
     x = tmp.index.values
     y = tmp.delta_SNP_index.values
     plt.scatter(x, y, color="red")

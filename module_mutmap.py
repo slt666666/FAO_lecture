@@ -31,11 +31,14 @@ def cross_reference_and_mutant(reference, mutant, progeny=200):
     phenotype = []
     for i in range(progeny):
         child = ""
+        key = False
         for j in range(len(reference)):
-            if random.random() > 0.5:
-                child = child + reference[j]
-            else:
+            if random.random() > 0.8:
+                key = not key
+            if key:
                 child = child + mutant[j]
+            else:
+                child = child + reference[j]
         children.append(child)
         if child[5] == reference[5]:
             phenotype.append("Green")
