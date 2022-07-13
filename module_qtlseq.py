@@ -38,7 +38,7 @@ def make_F2_progeny(cultivar_A, cultivar_B, progeny=200):
         phen = 40
         key = False
         for mut_i, j in enumerate(mut_pos):
-            if random.random() > 0.9:
+            if random.random() > 0.8:
                 key = not key
             if key:
                 child[j] = cultivar_B[j]
