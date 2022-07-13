@@ -8,13 +8,13 @@ import seaborn as sns
 import requests
 import io
 
-def make_mutant(reference):
+def make_reference_and_mutant(length=20, mutation=5):
+    reference = "".join([random.choice(["A", "T", "G", "C"]) for i in range(length)])
     mutant = list(copy.copy(reference))
-    mut_pos = [5]
+
     l = list(range(len(reference)))
-    l.remove(5)
-    mut_pos.extend(random.sample(l, 4))
-    for i in range(5):
+    mut_pos = random.sample(l, mutation)
+    for i in range(mutation):
         mutants = ["A", "T", "G", "C"]
         mutants.remove(reference[mut_pos[i]])
         mutant[mut_pos[i]] = random.choice(mutants)
@@ -23,10 +23,19 @@ def make_mutant(reference):
     with open("reference_sequences.fasta", mode='w') as f:
         f.write(">reference\n")
         f.write("{}\n".format(reference))
+    with open("../mutant_sequences.fasta", mode='w') as f:
+        f.write(">mutant\n")
+        f.write("{}\n".format(mutant))
     
-    return mutant
+    return reference, mutant
 
 def cross_reference_and_mutant(reference, mutant, progeny=200):
+    mut_pos = []
+    for i, j in enumerate(list(reference)):
+        if j != mutant[i]:
+            mut_pos.append(i)
+    causative_pos = random.choice(mut_pos)
+
     children = []
     phenotype = []
     for i in range(progeny):
@@ -40,7 +49,7 @@ def cross_reference_and_mutant(reference, mutant, progeny=200):
             else:
                 child = child + reference[j]
         children.append(child)
-        if child[5] == reference[5]:
+        if child[causative_pos] == reference[causative_pos]:
             phenotype.append("Green")
         else:
             phenotype.append("LightGreen")
@@ -74,14 +83,14 @@ def cross_reference_and_mutant(reference, mutant, progeny=200):
 
     return children
 
-def bulk_sequencing(progeny):
+def bulk_sequencing(progeny, read=50):
     mutants = progeny[progeny["Phenotype"] == "LightGreen"]
     mutants.iloc[:, 0].values
 
     reads = []
-    for i in range(50):
+    for i in range(read):
         tmp = np.random.choice(mutants.iloc[:, 0].values)
-        start = np.random.choice(range(int(len(tmp)//2)+1))
+        start = np.random.choice(range(len(tmp)-9))
         read = tmp[start:start+10]
         reads.append([read, start])
 
@@ -100,7 +109,7 @@ def alignment(reads, reference):
     tmp_df.columns = ["Reference"]
     reads = reads.sort_values(by=1)
     for i in range(reads.shape[0]):
-        tmp_df["read{}".format(i)] = list("-"*reads.iloc[i, 1] + reads.iloc[i, 0] + "-"*(10-reads.iloc[i, 1]))
+        tmp_df["read{}".format(i)] = list("-"*reads.iloc[i, 1] + reads.iloc[i, 0] + "-"*(len(reference)-10-reads.iloc[i, 1]))
     tmp_df = tmp_df.T
     return tmp_df
 
@@ -134,7 +143,7 @@ def visualize_SNP_index(SNP_index):
 
 def check_results(reference):
     reference_df = pd.DataFrame(list(reference)).T
-    reference_df.columns = range(1, 21)
+    reference_df.columns = range(1, len(reference)+1)
     reference_df["Phenotype"] = "Green"
     reference_df.index = ["Reference"]
     display(reference_df)
