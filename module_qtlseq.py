@@ -153,12 +153,12 @@ def visualize_SNP_index(high_bulk_SNP_index, low_bulk_SNP_index):
     x = high_bulk_SNP_index.index.values
     y = high_bulk_SNP_index.SNP_index.values
     y2 = low_bulk_SNP_index.SNP_index.values
-    plt.scatter(x, y)
+    plt.scatter(x, y, color="green")
     plt.title("High bulk SNP-index")
     plt.show()
     plt.clf()
 
-    plt.scatter(x, y2)
+    plt.scatter(x, y2, color="orange")
     plt.title("Low bulk SNP-index")
     plt.show()
 
