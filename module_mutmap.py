@@ -158,3 +158,31 @@ def check_results(reference):
     children_sample = pd.concat([children_sample1, children_sample2])
     children_sample.index = ["children"+str(i) for i in range(children_sample.shape[0])]
     display(children_sample)
+
+def load_data():
+    dataset = "mutmap_dataset.txt"
+    df = pd.read_csv(dataset)
+    return df
+
+def calculate_SNP_index2(alignment_results):
+    alignment_results["SNP_index"] = alignment_results["N_ALT"] / (alignment_results["N_REF"] + alignment_results["N_ALT"])
+    return alignment_results
+
+def visualize_SNP_index2(SNP_index):
+    sns.set()
+    x = SNP_index["POS"]
+    y = SNP_index["SNP_index"]
+
+    plt.figure(figsize=[12,4])
+    plt.scatter(x, y)
+    plt.title('SNP-index on chromosome 10', fontsize=18)
+    plt.xlabel('Position (x 10 Mb)', fontsize=12)
+    plt.ylabel('SNP-index', fontsize=12)
+
+    df2 = SNP_index[ SNP_index["SNP_index"]>0.8 ]
+
+    x2 = df2["POS"]
+    y2 = df2["SNP_index"]
+    plt.scatter(x2, y2, color="red")
+
+    plt.show()   
