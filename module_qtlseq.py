@@ -189,6 +189,29 @@ def check_results(delta_SNP_index):
     SNP_effect["delta_SNP_index"] = delta_SNP_index.delta_SNP_index.values
     return SNP_effect.reset_index()
 
+def get_yesterday_SNP_index():
+    !wget -q -O mutmap_dataset.txt https://raw.githubusercontent.com/CropEvol/lecture/master/data/mutmap_chr10.txt
+    SNP_index = pd.read_csv("mutmap_dataset.txt", sep=',', header=0)
+    SNP_index["SNP_index"] = SNP_index["N_ALT"] / (SNP_index["N_REF"] + SNP_index["N_ALT"])
+    return SNP_index
+
+def visualize_SNP_index2(SNP_index):
+    x = SNP_index["POS"]
+    y = SNP_index["SNP_index"]
+
+    plt.figure(figsize=[12,4])
+    plt.scatter(x, y)
+    plt.title('SNP-index on chromosome 10', fontsize=18)
+    plt.xlabel('Position (x 10 Mb)', fontsize=12)
+    plt.ylabel('SNP-index', fontsize=12)
+
+    df2 = SNP_index[ SNP_index["SNP_index"]>0.8 ]
+
+    x2 = df2["POS"]
+    y2 = df2["SNP_index"]
+    plt.scatter(x2, y2, color="red")
+
+    plt.show()   
 
 def sliding_window(SNP_index, window_size=1 * 1000 * 1000, step_size = 0.2 * 1000 * 1000):
     chrom_size = 23207287
