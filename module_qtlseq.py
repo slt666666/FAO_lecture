@@ -151,7 +151,6 @@ def visualize_SNP_index(high_bulk_SNP_index, low_bulk_SNP_index):
     x = high_bulk_SNP_index.index.values
     y = high_bulk_SNP_index.SNP_index.values
     y2 = low_bulk_SNP_index.SNP_index.values
-    plt.xticks(range(high_bulk_SNP_index.shape[0]), range(1, high_bulk_SNP_index.shape[0]+1))
     plt.scatter(x, y)
     plt.title("High bulk SNP-index")
     plt.show()
@@ -159,4 +158,17 @@ def visualize_SNP_index(high_bulk_SNP_index, low_bulk_SNP_index):
 
     plt.scatter(x, y2)
     plt.title("Low bulk SNP-index")
+    plt.show()
+
+
+def calculate_delta_SNP_index(high_bulk_SNP_index, low_bulk_SNP_index):
+    high_bulk_SNP_index["delta_SNP_index"] = high_bulk_SNP_index.SNP_index.values - low_bulk_SNP_index.SNP_index.values
+    delta_SNP_index = high_bulk_SNP_index.loc[:, ["cultivarA", "cultivarB", "delta_SNP_index"]]
+    return delta_SNP_index
+
+def visualize_delta_SNP_index(delta_SNP_index):
+    sns.set()
+    x = delta_SNP_index.index.values
+    y = delta_SNP_index.delta_SNP_index.values
+    plt.scatter(x, y)
     plt.show()
