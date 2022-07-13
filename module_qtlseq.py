@@ -55,6 +55,7 @@ def make_F2_progeny(cultivar_A, cultivar_B, progeny=200):
 def check_distribution(f2_progeny):
     sns.set()
     plt.hist(f2_progeny["Phenotype"])
+    plt.show()
 
 def high_and_low_bulk_sequencing(progeny, top=20, bottom=20, reads=500):
     children_sort = progeny.sort_values(by="Phenotype")
@@ -255,5 +256,6 @@ def qtl_seq_simulation(length=100, snp=40, progeny=200, reads=500):
     high_bulk_alignment_result, low_bulk_alignment_result = alignment(high_reads, low_reads, cultivar_A)
     high_bulk_SNP_index, low_bulk_SNP_index = calculate_SNP_index(high_bulk_alignment_result, low_bulk_alignment_result, cultivar_A, cultivar_B)
     delta_SNP_index = calculate_delta_SNP_index(high_bulk_SNP_index, low_bulk_SNP_index)
+    display(delta_SNP_index)
     visualize_delta_SNP_index(delta_SNP_index)
     check_results(delta_SNP_index)
