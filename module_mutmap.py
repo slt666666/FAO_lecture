@@ -149,3 +149,38 @@ def check_results(reference):
     children_sample = pd.concat([children_sample1, children_sample2])
     children_sample.index = ["children"+str(i) for i in range(children_sample.shape[0])]
     display(children_sample)
+
+def sliding_window(window_size=1 * 1000 * 1000, step_size = 0.2 * 1000 * 1000):
+    chrom_size = 23207287
+
+    x_win = []
+    x = []
+    y_win = []
+
+    start = 1
+    end  = start + win_size - 1
+
+    while True:
+        sub = df[ (df["POS"]>=start) & (df["POS"]<=end) ]
+        p = sub["POS"].mean()
+        s = sub["SNP_index"].mean()
+        x_win.append(p)
+        x.append([start, end])
+        y_win.append(s)
+
+        start = start + step_size
+        end  = end  + step_size
+
+        if end > chrom_size:
+            break
+
+    plt.figure(figsize=[12,4])
+    plt.scatter(x, y)
+    plt.plot(x_win, y_win, color="red")
+    plt.title('SNP-index on chromosome 10', fontsize=18)
+    plt.xlabel('Position (x 10 Mb)', fontsize=12)
+    plt.ylabel('SNP-index', fontsize=12)
+    plt.show()
+
+    result = pd.DataFrame({"Window":x, "average SNP-index":y_win})
+    return result
