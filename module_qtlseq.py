@@ -215,7 +215,7 @@ def sliding_window(SNP_index, window_size=1 * 1000 * 1000, step_size = 0.2 * 100
             break
 
     plt.figure(figsize=[12,4])
-    plt.scatter(x, y)
+    plt.scatter(SNP_index["POS"], SNP_index["SNP_index"])
     plt.plot(x_win, y_win, color="red")
     plt.title('SNP-index on chromosome 10', fontsize=18)
     plt.xlabel('Position (x 10 Mb)', fontsize=12)
