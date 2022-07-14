@@ -36,7 +36,7 @@ def make_genomic_prediction_model(train_genotype, train_phenotype, phenotype):
     return clf
 
 def predict_phenotype(test_genotype, prediction_model):
-    y_test_pred = clf.predict(test_genotype.T.fillna(1))
+    y_test_pred = prediction_model.predict(test_genotype.T.fillna(1))
     return y_test_pred
 
 def check_accuracy(predicted_test_phenotype, test_data, trait):
