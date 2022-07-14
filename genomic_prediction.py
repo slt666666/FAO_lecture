@@ -12,7 +12,7 @@ def load_dataset():
     return genotype, phenotype
 
 def split_dataset(genotype, phenotype, trait, test=0.2):
-    train, test = train_test_split(phenotype.Line.values, test_size=0.2)
+    train, test = train_test_split(phenotype.Line.values, test_size=0.2, random_state=1)
     train = np.sort(train); test = np.sort(test)
     test_genotype = genotype.loc[:, test]
     test_phenotype = phenotype[phenotype.Line.isin(test)]
@@ -46,4 +46,9 @@ def check_accuracy(predicted_test_phenotype, test_phenotype, trait):
     plt.scatter(predicted_test_phenotype, test_phenotype[trait].values)
     plt.xlabel("predicted {}".format(trait))
     plt.ylabel("observed {}".format(trait))
+    plt.show()
+
+def show_SNP_effect(prediction_model):
+    sns.set()
+    plt.plot(prediction_model.coef_)
     plt.show()
