@@ -39,11 +39,11 @@ def predict_phenotype(test_genotype, prediction_model):
     y_test_pred = prediction_model.predict(test_genotype.T.fillna(1))
     return y_test_pred
 
-def check_accuracy(predicted_test_phenotype, test_data, trait):
+def check_accuracy(predicted_test_phenotype, test_phenotype, trait):
     
-    print("Correlation coefficient:", np.corrcoef([y_test_pred, test_phenotype[trait].values])[0,1])
+    print("Correlation coefficient:", np.corrcoef([predicted_test_phenotype, test_phenotype[trait].values])[0,1])
     sns.set()
-    plt.scatter(y_test_pred, test_phenotype[trait].values)
+    plt.scatter(predicted_test_phenotype, test_phenotype[trait].values)
     plt.xlabel("predicted {}".format(trait))
     plt.ylabel("observed {}".format(trait))
     plt.show()
