@@ -7,8 +7,8 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.linear_model import ElasticNet
 
 def load_dataset():
-    phenotype = pd.read_csv("")
-    genotype = pd.read_csv("")
+    phenotype = pd.read_csv("https://github.com/slt666666/FAO_lecture/blob/main/phenotype.csv?raw=true")
+    genotype = pd.read_csv("https://github.com/slt666666/FAO_lecture/blob/main/genotype.csv?raw=true")
     return genotype, phenotype
 
 def split_dataset(genotype, phenotype, trait, test=0.2):
