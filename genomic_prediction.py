@@ -48,7 +48,7 @@ def check_accuracy(predicted_test_phenotype, test_phenotype, trait):
     plt.ylabel("observed {}".format(trait))
     plt.show()
 
-def show_SNP_effect(prediction_model):
+def show_estimated_SNP_effect(prediction_model):
     sns.set()
     plt.plot(prediction_model.coef_)
     plt.show()
