@@ -97,10 +97,13 @@ def bulk_sequencing(progeny, read=50):
     reads = pd.DataFrame(reads)
     reads.to_csv("../reads.csv")
 
-    with open("bulked_sequences.fasta", mode='w') as f:
+    with open("bulked_sequences.fastq", mode='w') as f:
         for i in range(reads.shape[0]):
             f.write(">read{}\n".format(i))
             f.write("{}\n".format(reads.iloc[i, 0]))
+            f.write("+")
+            quality = random.choices(['A', 'B', 'J', 'I', '?', '&', '9', '7'], k=8)
+            f.write("?J"+"".join(quality))
     
     return reads
 
