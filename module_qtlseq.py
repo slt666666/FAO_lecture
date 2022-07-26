@@ -76,6 +76,9 @@ def high_and_low_bulk_sequencing(progeny, top=20, bottom=20, reads=500):
         for i in range(low_reads.shape[0]):
             f.write(">read{}\n".format(i))
             f.write("{}\n".format(low_reads.iloc[i, 0]))
+            f.write("+\n")
+            quality = random.choices(['A', 'B', 'J', 'I', '?', '&', '9', '7'], k=8)
+            f.write("?J"+"".join(quality)+"\n")
 
     high_reads = []
     for i in range(reads):
@@ -91,7 +94,10 @@ def high_and_low_bulk_sequencing(progeny, top=20, bottom=20, reads=500):
         for i in range(high_reads.shape[0]):
             f.write(">read{}\n".format(i))
             f.write("{}\n".format(high_reads.iloc[i, 0]))
-
+            f.write("+\n")
+            quality = random.choices(['A', 'B', 'J', 'I', '?', '&', '9', '7'], k=8)
+            f.write("?J"+"".join(quality)+"\n")
+            
     return high_reads, low_reads
 
 def alignment(high_reads, low_reads, cultivar_A):
