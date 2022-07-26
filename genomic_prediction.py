@@ -65,9 +65,6 @@ def predict_progeny_phenotype(Line1, Line2, progeny, genotype, prediction_model)
 
     print("If we cross {} & {}, the phenotype of F2 population may be...".format(Line1, Line2))
 
-    genotype[Line1].values
-    naguruu = genotype[Line2].values
-
     progenies = []
 
     for k in range(progeny):
@@ -84,7 +81,8 @@ def predict_progeny_phenotype(Line1, Line2, progeny, genotype, prediction_model)
 
         for i in range(len(a)//2):
             new[a[i*2]:a[i*2+1]] = other[a[i*2]:a[i*2+1]]
-
+        
+        new[new<0] = 0
         progenies.append(new)
     progenies_genotype = pd.DataFrame(progenies).T
 
