@@ -116,7 +116,7 @@ def make_customized_genotype(genotype, selected_chrs):
         i = int(each_chr[3:]) - 1
         chr_genotype = genotype[genotype["chr"] == each_chr]
         end = chr_genotype.iloc[-1, :].pos
-        r = patches.Rectangle(xy=(12000000, i*12000000), width=end*3, height=5000000, ec='gray', fc="blue", linewidth=3)
+        r = patches.Rectangle(xy=(18000000, i*12000000), width=end*3, height=5000000, ec='gray', fc="blue", linewidth=3)
         ax.add_patch(r)
 
     plt.text(0, 0, "chr01")
