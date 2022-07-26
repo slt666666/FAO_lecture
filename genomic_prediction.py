@@ -61,7 +61,7 @@ def show_estimated_SNP_effect(prediction_model):
     plt.plot(prediction_model.coef_)
     plt.show()
 
-def make_simulated_progeny(Line1, Line2, progeny=100, genotype, prediction_model):
+def predict_progeny_phenotype(Line1, Line2, progeny=100, genotype, prediction_model):
 
     print("If we cross {} & {}, the phenotype of F2 population may be...".format(Line1, Line2))
 
