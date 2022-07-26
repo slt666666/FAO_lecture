@@ -35,6 +35,13 @@ def make_genomic_prediction_model(train_genotype, train_phenotype, phenotype):
     # coefs = clf.coef_
     return clf
 
+def check_equation(trait, prediction_model):
+    equation = "{} = {} + ".format(trait, prediction_model.intercept_)
+    for i, j in enumerate(prediction_model.coef_):
+        if j != 0:
+            equation += "SNP{}×{} + ".format(str(i), str(j))
+    return equation
+
 def predict_phenotype(test_genotype, prediction_model):
     y_test_pred = prediction_model.predict(test_genotype.T.fillna(1))
     return y_test_pred
