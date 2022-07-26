@@ -6,6 +6,8 @@ import seaborn as sns
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import GridSearchCV
 from sklearn.linear_model import ElasticNet
+import matplotlib.patches as patches
+import matplotlib.patches as mpatches
 
 def load_dataset():
     phenotype = pd.read_csv("https://github.com/slt666666/FAO_lecture/blob/main/phenotype.csv?raw=true")
@@ -82,7 +84,7 @@ def predict_progeny_phenotype(Line1, Line2, progeny, genotype, prediction_model)
         for i in range(len(a)//2):
             new[a[i*2]:a[i*2+1]] = other[a[i*2]:a[i*2+1]]
         
-        new[new<0] = 0
+        new[new < 0] = 0
         progenies.append(new)
     progenies_genotype = pd.DataFrame(progenies).T
 
@@ -90,3 +92,43 @@ def predict_progeny_phenotype(Line1, Line2, progeny, genotype, prediction_model)
     sns.set()
     plt.hist(pred)
     plt.show()
+
+def make_customized_genotype(genotype, selected_chrs):
+
+    fig = plt.figure(figsize=(5,12))
+    ax = plt.axes()
+
+    for i, each_chr in enumerate(genotype.chr.unique()):
+        chr_genotype = genotype[genotype["chr"] == each_chr]
+        end = chr_genotype.iloc[-1, :].pos
+        r = patches.Rectangle(xy=(0, i*12000000), width=end*3, height=5000000, ec='gray', fc="orange", linewidth=3)
+        ax.add_patch(r)
+
+    for each_chr in selected_chrs:
+        i = int(each_chr[3:]) - 1
+        chr_genotype = genotype[genotype["chr"] == each_chr]
+        end = chr_genotype.iloc[-1, :].pos
+        r = patches.Rectangle(xy=(0, i*12000000), width=end*3, height=5000000, ec='gray', fc="blue", linewidth=3)
+        ax.add_patch(r)
+
+    # for region in regions:
+    #     region_genotype = tmp_Inov_genotype[(tmp_Inov_genotype.index >= region[0]) & (tmp_Inov_genotype.index <= region[1])]
+    #     region_chr = region_genotype.chr.unique()[0]
+    #     pos_array = region_genotype.pos.str.split("_", expand=True).values.flatten()
+    #     pos_array = pos_array[pos_array != None].astype("int")
+    #     start = pos_array.min()
+    #     end = pos_array.max()
+    #     color = colors[region[2]]
+    #     r = patches.Rectangle(xy=(start*3, (int(region_chr[3:])-1)*12000000), width=(end-start)*3, height=5000000, ec="gray", fc=color)
+    #     ax.add_patch(r)
+
+    plt.axis('scaled')
+    plt.axis('off')
+    plt.tight_layout()
+    ax.set_aspect('equal')
+
+    plt.show()
+
+    customized_genotype = np.repeat(0, genotype.shape[0])
+    customized_genotype[genotype.chr.isin(selected_chrs).values] = 2
+    return pd.DataFrame(customized_genotype)
