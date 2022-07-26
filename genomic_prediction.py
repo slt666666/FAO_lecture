@@ -111,6 +111,8 @@ def make_customized_genotype(genotype, selected_chrs):
         r = patches.Rectangle(xy=(0, i*12000000), width=end*3, height=5000000, ec='gray', fc="blue", linewidth=3)
         ax.add_patch(r)
 
+    plt.text(0, 0, "chr01")
+
     # for region in regions:
     #     region_genotype = tmp_Inov_genotype[(tmp_Inov_genotype.index >= region[0]) & (tmp_Inov_genotype.index <= region[1])]
     #     region_chr = region_genotype.chr.unique()[0]
