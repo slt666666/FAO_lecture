@@ -101,14 +101,22 @@ def make_customized_genotype(genotype, selected_chrs):
     for i, each_chr in enumerate(genotype.chr.unique()):
         chr_genotype = genotype[genotype["chr"] == each_chr]
         end = chr_genotype.iloc[-1, :].pos
-        r = patches.Rectangle(xy=(0, i*12000000), width=end*3, height=5000000, ec='gray', fc="orange", linewidth=3)
+        r = patches.Rectangle(xy=(12000000, i*12000000), width=end*3, height=5000000, ec='gray', fc="orange", linewidth=3)
         ax.add_patch(r)
+        plt.text(0, i*12000000, each_chr)
+
+    r = patches.Rectangle(xy=(30000000, -1*12000000), width=3000000*3, height=5000000, ec='gray', fc="orange", linewidth=3)
+    ax.add_patch(r)
+    plt.text(0, -1*12000000, "cultivar_A")
+    r = patches.Rectangle(xy=(65000000, -1*12000000), width=3000000*3, height=5000000, ec='gray', fc="blue", linewidth=3)
+    ax.add_patch(r)
+    plt.text(42000000, -1*12000000, "mutant")
 
     for each_chr in selected_chrs:
         i = int(each_chr[3:]) - 1
         chr_genotype = genotype[genotype["chr"] == each_chr]
         end = chr_genotype.iloc[-1, :].pos
-        r = patches.Rectangle(xy=(0, i*12000000), width=end*3, height=5000000, ec='gray', fc="blue", linewidth=3)
+        r = patches.Rectangle(xy=(12000000, i*12000000), width=end*3, height=5000000, ec='gray', fc="blue", linewidth=3)
         ax.add_patch(r)
 
     plt.text(0, 0, "chr01")
