@@ -99,14 +99,14 @@ def alignment(high_reads, low_reads, cultivar_A):
     low_df.columns = ["Reference"]
     low_reads = low_reads.sort_values(by=1)
     for i in range(low_reads.shape[0]):
-        low_df["read{}".format(i)] = list("-"*low_reads.iloc[i, 1] + low_reads.iloc[i, 0] + "-"*(len(cultivar_A)-10-low_reads.iloc[i, 1]))
+        low_df["read{}".format(low_reads.index.values[i])] = list("-"*low_reads.iloc[i, 1] + low_reads.iloc[i, 0] + "-"*(len(cultivar_A)-10-low_reads.iloc[i, 1]))
     low_df = low_df.T
 
     high_df = pd.DataFrame(list(cultivar_A))
     high_df.columns = ["Reference"]
     high_reads = high_reads.sort_values(by=1)
     for i in range(high_reads.shape[0]):
-        high_df["read{}".format(i)] = list("-"*high_reads.iloc[i, 1] + high_reads.iloc[i, 0] + "-"*(len(cultivar_A)-10-high_reads.iloc[i, 1]))
+        high_df["read{}".format(high_reads.index.values[i])] = list("-"*high_reads.iloc[i, 1] + high_reads.iloc[i, 0] + "-"*(len(cultivar_A)-10-high_reads.iloc[i, 1]))
     high_df = high_df.T
 
     return high_df, low_df
