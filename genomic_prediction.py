@@ -93,7 +93,7 @@ def predict_progeny_phenotype(Line1, Line2, progeny, genotype, prediction_model)
     plt.hist(pred)
     plt.show()
 
-def make_customized_genotype(genotype, selected_chrs):
+def predict_customized_genotype(genotype, selected_chrs, prediction_model, trait):
 
     fig = plt.figure(figsize=(5,12))
     ax = plt.axes()
@@ -141,4 +141,7 @@ def make_customized_genotype(genotype, selected_chrs):
 
     customized_genotype = np.repeat(0, genotype.shape[0])
     customized_genotype[genotype.chr.isin(selected_chrs).values] = 2
-    return pd.DataFrame(customized_genotype)
+
+    print("The cultivar of this genotype showed...")
+    print(trait, "=", predict_phenotype(pd.DataFrame(customized_genotype), prediction_model)[0])
+    
