@@ -4,7 +4,10 @@ import matplotlib.pyplot as plt
 from PIL import Image
 import seaborn as sns
 import random
+import requests
 import copy
+import io
+
 
 def make_2_cultivars(length=100, snp=20):
     cultivar_A = [random.choice(["A", "T", "G", "C"]) for i in range(length)]
