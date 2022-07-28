@@ -53,8 +53,30 @@ def make_F2_progeny(cultivar_A, cultivar_B, progeny=200):
     return children
 
 def check_distribution(f2_progeny):
+
+    image_ref = Image.open(io.BytesIO(requests.get('https://github.com/slt666666/FAO_lecture/blob/main/reference_plant.png?raw=true').content))
+    image_dash = Image.open(io.BytesIO(requests.get('https://github.com/slt666666/FAO_lecture/blob/main/dash.png?raw=true').content))
+
+    print("Progenies are ...")
+    img_size = image_ref.size
+    original_img_aspect = img_size[1] / img_size[0]
+    fig = plt.figure()
+    for i, im in enumerate(range(20)):
+        if i != 19:
+            fig.add_subplot(1,20,i+1).set_title(str(i))
+            plt.axis("off")
+            plt.imshow(image_ref, aspect=(1/original_img_aspect)*random.uniform(1, 1.2))
+        else:
+            fig.add_subplot(1,20,i+1).set_title(str(i)+"...")
+            plt.axis("off")
+            plt.imshow(image_dash)
+    plt.show()
+
+    print("The distribution of phenotypes of F2 population is ...")
     sns.set()
     plt.hist(f2_progeny["Phenotype"])
+    plt.xlabel("phenotype (plant height)")
+    plt.ylabel("The number of progeny")
     plt.show()
 
 def high_and_low_bulk_sequencing(progeny, top=20, bottom=20, reads=500):
