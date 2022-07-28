@@ -148,7 +148,7 @@ def alignment(high_reads, low_reads, cultivar_A):
     print("Low-bulk")
     display(low_df.iloc[:50,])
     print("...")
-    
+
     return high_df, low_df
 
 def calculate_SNP_index(high_bulk_alignment_result, low_bulk_alignment_result, cultivar_A, cultivar_B):
@@ -228,7 +228,7 @@ def check_results(delta_SNP_index):
     SNP_effect = pd.read_csv("../SNP_effect.csv", index_col=0)
     SNP_effect = SNP_effect.set_index("Position")
     SNP_effect["delta_SNP_index"] = delta_SNP_index.delta_SNP_index.values
-    return SNP_effect.reset_index()
+    return SNP_effect.reset_index().sort_values(by="Simulated_SNP_effect", ascending=True)
 
 def get_yesterday_SNP_index():
     SNP_index = pd.read_csv("mutmap_dataset.txt", sep=',', header=0)
@@ -277,6 +277,10 @@ def sliding_window(SNP_index, window_size=1 * 1000 * 1000, step_size = 0.2 * 100
         if end > chrom_size:
             break
 
+    result = pd.DataFrame({"Window":x, "average SNP-index":y_win})
+    display(result)
+    print("...")
+
     plt.figure(figsize=[12,4])
     plt.scatter(SNP_index["POS"], SNP_index["SNP_index"])
     plt.plot(x_win, y_win, color="red")
@@ -284,9 +288,6 @@ def sliding_window(SNP_index, window_size=1 * 1000 * 1000, step_size = 0.2 * 100
     plt.xlabel('Position (x 10 Mb)', fontsize=12)
     plt.ylabel('SNP-index', fontsize=12)
     plt.show()
-
-    result = pd.DataFrame({"Window":x, "average SNP-index":y_win})
-    return result
 
 def qtl_seq_simulation(length=100, snp=40, progeny=200, reads=500):
     cultivar_A, cultivar_B = make_2_cultivars(length=length, snp=snp)
