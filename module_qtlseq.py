@@ -141,6 +141,14 @@ def alignment(high_reads, low_reads, cultivar_A):
         high_df["read{}".format(high_reads.index.values[i])] = list("-"*high_reads.iloc[i, 1] + high_reads.iloc[i, 0] + "-"*(len(cultivar_A)-10-high_reads.iloc[i, 1]))
     high_df = high_df.T
 
+    print("High-bulk")
+    display(high_df.iloc[:50,])
+    print("...")
+    display(high_df.iloc[-50:,])
+    print("Low-bulk")
+    display(low_df.iloc[:50,])
+    print("...")
+    display(low_df.iloc[-50:,])
     return high_df, low_df
 
 def calculate_SNP_index(high_bulk_alignment_result, low_bulk_alignment_result, cultivar_A, cultivar_B):
