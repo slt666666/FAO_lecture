@@ -69,7 +69,7 @@ def check_distribution(f2_progeny):
         if i != 19:
             fig.add_subplot(1,20,i+1).set_title(str(i))
             plt.axis("off")
-            plt.imshow(image_ref, aspect=(1/original_img_aspect)*random.uniform(1, 1.2))
+            plt.imshow(image_ref, aspect=(1/original_img_aspect)*random.uniform(1, 1.5))
         else:
             fig.add_subplot(1,20,i+1).set_title(str(i)+"...")
             plt.axis("off")
@@ -143,10 +143,10 @@ def alignment(high_reads, low_reads, cultivar_A):
 
     print("\n")
     print("High-bulk")
-    display(high_df.iloc[:50,])
+    display(high_df.iloc[:15,])
     print("...")
     print("Low-bulk")
-    display(low_df.iloc[:50,])
+    display(low_df.iloc[:15,])
     print("...")
 
     return high_df, low_df
@@ -279,7 +279,6 @@ def sliding_window(SNP_index, window_size=1 * 1000 * 1000, step_size = 0.2 * 100
 
     result = pd.DataFrame({"Window":x, "average SNP-index":y_win})
     display(result)
-    print("...")
 
     plt.figure(figsize=[12,4])
     plt.scatter(SNP_index["POS"], SNP_index["SNP_index"])
