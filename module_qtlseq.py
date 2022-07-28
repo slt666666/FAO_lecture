@@ -64,7 +64,7 @@ def check_distribution(f2_progeny):
     print("Progenies are ...")
     img_size = image_ref.size
     original_img_aspect = img_size[1] / img_size[0]
-    fig = plt.figure(figsize=(4,20))
+    fig = plt.figure(figsize=(10,50))
     for i, im in enumerate(range(20)):
         if i != 19:
             fig.add_subplot(1,20,i+1).set_title(str(i))
