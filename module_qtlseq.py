@@ -228,8 +228,7 @@ def check_results(delta_SNP_index):
     SNP_effect = pd.read_csv("../SNP_effect.csv", index_col=0)
     SNP_effect = SNP_effect.set_index("Position")
     SNP_effect["delta_SNP_index"] = delta_SNP_index.delta_SNP_index.values
-    return SNP_effect.reset_index().sort_values(by="Simulated_SNP_effect", ascending=True)
-
+    return SNP_effect.reset_index()
 def get_yesterday_SNP_index():
     SNP_index = pd.read_csv("mutmap_dataset.txt", sep=',', header=0)
     SNP_index["SNP_index"] = SNP_index["N_ALT"] / (SNP_index["N_REF"] + SNP_index["N_ALT"])
