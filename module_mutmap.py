@@ -68,8 +68,8 @@ def cross_reference_and_mutant(reference, mutant, progeny=200):
             images.append(image_mut)
         else:
             images.append(image_ref)
-    print("Progenies are ...")
-    fig = plt.figure(figsize=(36, 36))
+    print("F2 population is ...")
+    fig = plt.figure(figsize=(24, 20))
     if progeny > 200:
         for i, im in enumerate(images[:200]):
             if i != 199:
