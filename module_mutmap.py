@@ -106,8 +106,8 @@ def bulk_sequencing(progeny, read=50):
     reads = []
     for i in range(read):
         tmp = np.random.choice(mutants.iloc[:, 0].values)
-        start = np.random.choice(range(len(tmp)-9))
-        read = tmp[start:start+10]
+        start = np.random.choice(range(len(tmp)-19))
+        read = tmp[start:start+20]
         reads.append([read, start])
 
     reads = pd.DataFrame(reads)
@@ -128,7 +128,7 @@ def alignment(reads, reference):
     tmp_df.columns = ["Reference"]
     reads = reads.sort_values(by=1)
     for i in range(reads.shape[0]):
-        tmp_df["read{}".format(reads.index.values[i])] = list("-"*reads.iloc[i, 1] + reads.iloc[i, 0] + "-"*(len(reference)-10-reads.iloc[i, 1]))
+        tmp_df["read{}".format(reads.index.values[i])] = list("-"*reads.iloc[i, 1] + reads.iloc[i, 0] + "-"*(len(reference)-20-reads.iloc[i, 1]))
     tmp_df = tmp_df.T
     return tmp_df
 
