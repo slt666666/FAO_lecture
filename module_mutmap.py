@@ -70,15 +70,31 @@ def cross_reference_and_mutant(reference, mutant, progeny=200):
             images.append(image_ref)
     print("Progenies are ...")
     fig = plt.figure()
-    for i, im in enumerate(images[:20]):
-        if i != 19:
-            fig.add_subplot(4,5,i+1).set_title(str(i))
+    if progeny > 200:
+        for i, im in enumerate(images[:200]):
+            if i != 199:
+                fig.add_subplot(10,20,i+1).set_title(str(i))
+                plt.axis("off")
+                plt.imshow(im)
+            else:
+                fig.add_subplot(10,20,i+1).set_title(str(i)+"...")
+                plt.axis("off")
+                plt.imshow(image_dash)
+    elif progeny == 200:
+        for i, im in enumerate(images[:200]):
+            fig.add_subplot(10,20,i+1).set_title(str(i))
             plt.axis("off")
             plt.imshow(im)
-        else:
-            fig.add_subplot(4,5,i+1).set_title(str(i)+"...")
-            plt.axis("off")
-            plt.imshow(image_dash)
+    else:
+        for i, im in enumerate(images[:20]):
+            if i != 19:
+                fig.add_subplot(4,5,i+1).set_title(str(i))
+                plt.axis("off")
+                plt.imshow(im)
+            else:
+                fig.add_subplot(4,5,i+1).set_title(str(i)+"...")
+                plt.axis("off")
+                plt.imshow(image_dash) 
     plt.show()
 
     return children
