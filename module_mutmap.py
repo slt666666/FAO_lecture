@@ -69,7 +69,7 @@ def cross_reference_and_mutant(reference, mutant, progeny=200):
         else:
             images.append(image_ref)
     print("Progenies are ...")
-    fig = plt.figure()
+    fig = plt.figure(36, 72)
     if progeny > 200:
         for i, im in enumerate(images[:200]):
             if i != 199:
@@ -88,11 +88,11 @@ def cross_reference_and_mutant(reference, mutant, progeny=200):
     else:
         for i, im in enumerate(images[:20]):
             if i != 19:
-                fig.add_subplot(4,5,i+1).set_title(str(i))
+                fig.add_subplot(4,5,i+1).set_title(str(i+1))
                 plt.axis("off")
                 plt.imshow(im)
             else:
-                fig.add_subplot(4,5,i+1).set_title(str(i)+"...")
+                fig.add_subplot(4,5,i+1).set_title(str(i+1)+"...")
                 plt.axis("off")
                 plt.imshow(image_dash) 
     plt.show()
