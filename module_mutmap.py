@@ -12,7 +12,7 @@ def make_reference_and_mutant(length=20, mutation=5):
     reference = "".join([random.choice(["A", "T", "G", "C"]) for i in range(length)])
     mutant = list(copy.copy(reference))
 
-    l = list(range(len(reference)))
+    l = list(range(4, len(reference)-3))
     mut_pos = random.sample(l, mutation)
     for i in range(mutation):
         mutants = ["A", "T", "G", "C"]
