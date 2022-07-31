@@ -159,7 +159,9 @@ def visualize_SNP_index(SNP_index):
     x = SNP_index.index.values
     y = SNP_index.SNP_index.values
     plt.scatter(x, y)
-    plt.xticks(np.arange(1, SNP_index.index.values[-1], 5))
+    plt.xticks(np.arange(5, SNP_index.index.values[-1], 5))
+    plt.xlabel("SNP position")
+    plt.ylabel("SNP-index")
     plt.show()
 
 def check_results(reference):
