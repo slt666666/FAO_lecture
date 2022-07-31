@@ -181,7 +181,10 @@ def check_results(reference, SNP_index):
     children_sample.index = ["children"+str(i) for i in range(children_sample.shape[0])]
     
     final_df = pd.concat([reference_df, children_sample])
-    return final_df.loc[:, [SNP_index.index[SNP_index["SNP_index"] == 1].values[0], "Phenotype"]]
+    causative_index = SNP_index.index[SNP_index["SNP_index"] == 1].values[0]
+    final_df = final_df.loc[:, [causative_index, "Phenotype"]]
+    final_df.columns = ["SNP{} (SNP-index=1)".format(causative_index), "Phenotype"]
+    return final_df
 
 def load_data():
     dataset = "mutmap_dataset.txt"
