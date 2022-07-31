@@ -164,12 +164,11 @@ def visualize_SNP_index(SNP_index):
     plt.ylabel("SNP-index")
     plt.show()
 
-def check_results(reference):
+def check_results(reference, SNP_index):
     reference_df = pd.DataFrame(list(reference)).T
     reference_df.columns = range(1, len(reference)+1)
     reference_df["Phenotype"] = "Green"
     reference_df.index = ["Reference"]
-    display(reference_df)
 
     children = pd.read_csv("../simulated_progenies.csv", index_col=0)
     children_sample1 = pd.DataFrame(children[children["Phenotype"] == "LightGreen"].iloc[:5, 0].str.split("").tolist())
@@ -180,7 +179,9 @@ def check_results(reference):
     children_sample2["Phenotype"] = "Green"
     children_sample = pd.concat([children_sample1, children_sample2])
     children_sample.index = ["children"+str(i) for i in range(children_sample.shape[0])]
-    display(children_sample)
+    
+    final_df = pd.concat([reference_df, children_sample])
+    return final_df.loc[, [SNP_index.index.values[SNP_index["SNP_index"] == 1], "Phenotype"]]
 
 def load_data():
     dataset = "mutmap_dataset.txt"
