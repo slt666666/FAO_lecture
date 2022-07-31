@@ -61,7 +61,7 @@ def check_distribution(f2_progeny):
     image_ref = Image.open(io.BytesIO(requests.get('https://github.com/slt666666/FAO_lecture/blob/main/reference_plant.png?raw=true').content))
     image_dash = Image.open(io.BytesIO(requests.get('https://github.com/slt666666/FAO_lecture/blob/main/dash.png?raw=true').content))
 
-    print("Progenies are ...")
+    print("F2 population is ...")
     img_size = image_ref.size
     original_img_aspect = img_size[1] / img_size[0]
     fig = plt.figure(figsize=(16,100))
@@ -91,8 +91,8 @@ def high_and_low_bulk_sequencing(progeny, top=20, bottom=20, reads=500):
     low_reads = []
     for i in range(reads):
         tmp = np.random.choice(low_bulk.iloc[:, 0].values)
-        start = np.random.choice(range(len(tmp)-9))
-        read = tmp[start:start+10]
+        start = np.random.choice(range(len(tmp)-19))
+        read = tmp[start:start+20]
         low_reads.append([read, start])
 
     low_reads = pd.DataFrame(low_reads)
@@ -103,14 +103,14 @@ def high_and_low_bulk_sequencing(progeny, top=20, bottom=20, reads=500):
             f.write(">read{}\n".format(i))
             f.write("{}\n".format(low_reads.iloc[i, 0]))
             f.write("+\n")
-            quality = random.choices(['A', 'B', 'J', 'I', '?', '&', '9', '7'], k=8)
+            quality = random.choices(['A', 'B', 'J', 'I', '?', '&', '9', '7'], k=18)
             f.write("?J"+"".join(quality)+"\n")
 
     high_reads = []
     for i in range(reads):
         tmp = np.random.choice(high_bulk.iloc[:, 0].values)
-        start = np.random.choice(range(len(tmp)-9))
-        read = tmp[start:start+10]
+        start = np.random.choice(range(len(tmp)-19))
+        read = tmp[start:start+20]
         high_reads.append([read, start])
 
     high_reads = pd.DataFrame(high_reads)
@@ -121,7 +121,7 @@ def high_and_low_bulk_sequencing(progeny, top=20, bottom=20, reads=500):
             f.write(">read{}\n".format(i))
             f.write("{}\n".format(high_reads.iloc[i, 0]))
             f.write("+\n")
-            quality = random.choices(['A', 'B', 'J', 'I', '?', '&', '9', '7'], k=8)
+            quality = random.choices(['A', 'B', 'J', 'I', '?', '&', '9', '7'], k=18)
             f.write("?J"+"".join(quality)+"\n")
             
     return high_reads, low_reads
@@ -131,14 +131,14 @@ def alignment(high_reads, low_reads, cultivar_A):
     low_df.columns = ["Reference"]
     low_reads = low_reads.sort_values(by=1)
     for i in range(low_reads.shape[0]):
-        low_df["read{}".format(low_reads.index.values[i])] = list("-"*low_reads.iloc[i, 1] + low_reads.iloc[i, 0] + "-"*(len(cultivar_A)-10-low_reads.iloc[i, 1]))
+        low_df["read{}".format(low_reads.index.values[i])] = list("-"*low_reads.iloc[i, 1] + low_reads.iloc[i, 0] + "-"*(len(cultivar_A)-20-low_reads.iloc[i, 1]))
     low_df = low_df.T
 
     high_df = pd.DataFrame(list(cultivar_A))
     high_df.columns = ["Reference"]
     high_reads = high_reads.sort_values(by=1)
     for i in range(high_reads.shape[0]):
-        high_df["read{}".format(high_reads.index.values[i])] = list("-"*high_reads.iloc[i, 1] + high_reads.iloc[i, 0] + "-"*(len(cultivar_A)-10-high_reads.iloc[i, 1]))
+        high_df["read{}".format(high_reads.index.values[i])] = list("-"*high_reads.iloc[i, 1] + high_reads.iloc[i, 0] + "-"*(len(cultivar_A)-20-high_reads.iloc[i, 1]))
     high_df = high_df.T
 
     print("\n")
@@ -229,6 +229,7 @@ def check_results(delta_SNP_index):
     SNP_effect = SNP_effect.set_index("Position")
     SNP_effect["delta_SNP_index"] = delta_SNP_index.delta_SNP_index.values
     return SNP_effect.reset_index()
+
 def get_yesterday_SNP_index():
     SNP_index = pd.read_csv("mutmap_dataset.txt", sep=',', header=0)
     SNP_index["SNP_index"] = SNP_index["N_ALT"] / (SNP_index["N_REF"] + SNP_index["N_ALT"])

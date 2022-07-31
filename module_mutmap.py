@@ -118,7 +118,7 @@ def bulk_sequencing(progeny, read=50):
             f.write(">read{}\n".format(i))
             f.write("{}\n".format(reads.iloc[i, 0]))
             f.write("+\n")
-            quality = random.choices(['A', 'B', 'J', 'I', '?', '&', '9', '7'], k=8)
+            quality = random.choices(['A', 'B', 'J', 'I', '?', '&', '9', '7'], k=18)
             f.write("?J"+"".join(quality)+"\n")
     
     return reads
