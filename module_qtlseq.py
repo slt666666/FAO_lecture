@@ -217,7 +217,7 @@ def visualize_delta_SNP_index(delta_SNP_index):
     y = delta_SNP_index.delta_SNP_index.values
     plt.scatter(x, y)
 
-    tmp = delta_SNP_index[delta_SNP_index["delta_SNP_index"] >= 0.9]
+    tmp = delta_SNP_index[delta_SNP_index["delta_SNP_index"] >= 1]
     x = tmp.index.values
     y = tmp.delta_SNP_index.values
     plt.scatter(x, y, color="red")
@@ -228,7 +228,7 @@ def check_results(delta_SNP_index):
     SNP_effect = pd.read_csv("../SNP_effect.csv", index_col=0)
     SNP_effect = SNP_effect.set_index("Position")
     SNP_effect["delta_SNP_index"] = delta_SNP_index.delta_SNP_index.values
-    return SNP_effect.reset_index()
+    return SNP_effect.reset_index().sort_values(by="Simulated_SNP_effect", ascending=False)
 
 def get_yesterday_SNP_index():
     SNP_index = pd.read_csv("mutmap_dataset.txt", sep=',', header=0)
