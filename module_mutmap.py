@@ -181,7 +181,7 @@ def check_results(reference, SNP_index):
     children_sample.index = ["children"+str(i) for i in range(children_sample.shape[0])]
     
     final_df = pd.concat([reference_df, children_sample])
-    return final_df#.loc[:, [SNP_index.index[SNP_index["SNP_index"] == 1], "Phenotype"]]
+    return final_df.loc[:, [SNP_index.index[SNP_index["SNP_index"] == 1].values[0], "Phenotype"]]
 
 def load_data():
     dataset = "mutmap_dataset.txt"
@@ -219,4 +219,4 @@ def MutMap_simulation(length=100, mutation=20, progeny=200, read=1000):
     SNP_index = calculate_SNP_index(alignment_result, reference, mutant)
     display(SNP_index)
     visualize_SNP_index(SNP_index)
-    check_results(reference)
+    check_results(reference, SNP_index)
