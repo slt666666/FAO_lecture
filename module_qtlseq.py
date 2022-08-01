@@ -98,7 +98,7 @@ def high_and_low_bulk_sequencing(progeny, top=20, bottom=20, reads=500):
     low_reads = pd.DataFrame(low_reads)
     low_reads.to_csv("../low_reads.csv")
 
-    with open("low_bulked_sequences.fasta", mode='w') as f:
+    with open("low_bulked_sequences.fastq", mode='w') as f:
         for i in range(low_reads.shape[0]):
             f.write(">read{}\n".format(i))
             f.write("{}\n".format(low_reads.iloc[i, 0]))
@@ -116,7 +116,7 @@ def high_and_low_bulk_sequencing(progeny, top=20, bottom=20, reads=500):
     high_reads = pd.DataFrame(high_reads)
     high_reads.to_csv("../high_reads.csv")
 
-    with open("high_bulked_sequences.fasta", mode='w') as f:
+    with open("high_bulked_sequences.fastq", mode='w') as f:
         for i in range(high_reads.shape[0]):
             f.write(">read{}\n".format(i))
             f.write("{}\n".format(high_reads.iloc[i, 0]))
@@ -124,6 +124,8 @@ def high_and_low_bulk_sequencing(progeny, top=20, bottom=20, reads=500):
             quality = random.choices(['A', 'B', 'J', 'I', '?', '&', '9', '7'], k=18)
             f.write("?J"+"".join(quality)+"\n")
             
+    print("Finish sequencing !! high_bulked_sequences.fastq and low_bulked_sequences.fastq are generated !!")
+
     return high_reads, low_reads
 
 def alignment(high_reads, low_reads, cultivar_A):

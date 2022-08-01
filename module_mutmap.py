@@ -120,6 +120,8 @@ def bulk_sequencing(progeny, read=50):
             f.write("+\n")
             quality = random.choices(['A', 'B', 'J', 'I', '?', '&', '9', '7'], k=18)
             f.write("?J"+"".join(quality)+"\n")
+
+    print("Finish sequencing !! bulked_sequences.fastq is generated !!")
     
     return reads
 
