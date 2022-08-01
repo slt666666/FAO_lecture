@@ -142,8 +142,9 @@ def predict_customized_genotype(genotype, selected_chrs, prediction_model, trait
     customized_genotype = np.repeat(0, genotype.shape[0])
     customized_genotype[genotype.chr.isin(selected_chrs).values] = 2
 
+    print("\n")
     print("The cultivar of this genotype showed...")
     print(trait, "=", predict_phenotype(pd.DataFrame(customized_genotype), prediction_model)[0])
-
+    print("\n")
     print("※", trait, "of cultivar A is", predict_phenotype(pd.DataFrame(np.repeat(0, genotype.shape[0])), prediction_model)[0])
     
