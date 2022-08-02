@@ -29,7 +29,7 @@ def make_reference_and_mutant(length=20, mutation=5):
     
     return reference, mutant
 
-def cross_reference_and_mutant(reference, mutant, progeny=200):
+def cross_reference_and_mutant(reference, mutant, progeny=200, plot=True):
     mut_pos = []
     for i, j in enumerate(list(reference)):
         if j != mutant[i]:
@@ -58,44 +58,45 @@ def cross_reference_and_mutant(reference, mutant, progeny=200):
     children["Phenotype"] = phenotype
     children.to_csv("../simulated_progenies.csv")
 
-    image_ref = Image.open(io.BytesIO(requests.get('https://github.com/slt666666/FAO_lecture/blob/main/reference_plant.png?raw=true').content))
-    image_mut = Image.open(io.BytesIO(requests.get('https://github.com/slt666666/FAO_lecture/blob/main/mutant_plant.png?raw=true').content))
-    image_dash = Image.open(io.BytesIO(requests.get('https://github.com/slt666666/FAO_lecture/blob/main/dash.png?raw=true').content))
+    if plot:
+        image_ref = Image.open(io.BytesIO(requests.get('https://github.com/slt666666/FAO_lecture/blob/main/reference_plant.png?raw=true').content))
+        image_mut = Image.open(io.BytesIO(requests.get('https://github.com/slt666666/FAO_lecture/blob/main/mutant_plant.png?raw=true').content))
+        image_dash = Image.open(io.BytesIO(requests.get('https://github.com/slt666666/FAO_lecture/blob/main/dash.png?raw=true').content))
 
-    images = []
-    for i in range(children.shape[0]):
-        if children.iloc[i, 1] == "LightGreen":
-            images.append(image_mut)
-        else:
-            images.append(image_ref)
-    print("F2 population is ...")
-    fig = plt.figure(figsize=(24, 20))
-    if progeny > 200:
-        for i, im in enumerate(images[:200]):
-            if i != 199:
+        images = []
+        for i in range(children.shape[0]):
+            if children.iloc[i, 1] == "LightGreen":
+                images.append(image_mut)
+            else:
+                images.append(image_ref)
+        print("F2 population is ...")
+        fig = plt.figure(figsize=(24, 20))
+        if progeny > 200:
+            for i, im in enumerate(images[:200]):
+                if i != 199:
+                    fig.add_subplot(10,20,i+1).set_title(str(i))
+                    plt.axis("off")
+                    plt.imshow(im)
+                else:
+                    fig.add_subplot(10,20,i+1).set_title(str(i)+"...")
+                    plt.axis("off")
+                    plt.imshow(image_dash)
+        elif progeny == 200:
+            for i, im in enumerate(images[:200]):
                 fig.add_subplot(10,20,i+1).set_title(str(i))
                 plt.axis("off")
                 plt.imshow(im)
-            else:
-                fig.add_subplot(10,20,i+1).set_title(str(i)+"...")
-                plt.axis("off")
-                plt.imshow(image_dash)
-    elif progeny == 200:
-        for i, im in enumerate(images[:200]):
-            fig.add_subplot(10,20,i+1).set_title(str(i))
-            plt.axis("off")
-            plt.imshow(im)
-    else:
-        for i, im in enumerate(images[:20]):
-            if i != 19:
-                fig.add_subplot(4,5,i+1).set_title(str(i+1))
-                plt.axis("off")
-                plt.imshow(im)
-            else:
-                fig.add_subplot(4,5,i+1).set_title(str(i+1)+"...")
-                plt.axis("off")
-                plt.imshow(image_dash) 
-    plt.show()
+        else:
+            for i, im in enumerate(images[:20]):
+                if i != 19:
+                    fig.add_subplot(4,5,i+1).set_title(str(i+1))
+                    plt.axis("off")
+                    plt.imshow(im)
+                else:
+                    fig.add_subplot(4,5,i+1).set_title(str(i+1)+"...")
+                    plt.axis("off")
+                    plt.imshow(image_dash) 
+        plt.show()
 
     return children
 
@@ -218,7 +219,7 @@ def visualize_SNP_index2(SNP_index):
 
 def MutMap_simulation(length=100, mutation=20, progeny=200, read=1000):
     reference, mutant = make_reference_and_mutant(length=length, mutation=mutation)
-    progeny = cross_reference_and_mutant(reference, mutant, progeny=progeny)
+    progeny = cross_reference_and_mutant(reference, mutant, progeny=progeny, plot=False)
     reads = bulk_sequencing(progeny, read=read)
     alignment_result = alignment(reads, reference)
     SNP_index = calculate_SNP_index(alignment_result, reference, mutant)
