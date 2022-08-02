@@ -133,6 +133,9 @@ def alignment(reads, reference):
     for i in range(reads.shape[0]):
         tmp_df["read{}".format(reads.index.values[i])] = list("-"*reads.iloc[i, 1] + reads.iloc[i, 0] + "-"*(len(reference)-20-reads.iloc[i, 1]))
     tmp_df = tmp_df.T
+    tmp_df.columns = tmp_df.columns.values+1
+    display(tmp_df)
+    tmp_df.columns = tmp_df.columns.values-1    
     return tmp_df
 
 def calculate_SNP_index(alignment_result, reference, mutant):
