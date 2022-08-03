@@ -13,6 +13,10 @@ def make_2_cultivars(length=100, snp=20):
     cultivar_A = [random.choice(["A", "T", "G", "C"]) for i in range(length)]
     cultivar_A = "".join(cultivar_A)
 
+    with open("cultivarA_reference_sequences.fasta", mode='w') as f:
+        f.write(">cultivarA_reference\n")
+        f.write("{}\n".format(cultivar_A))
+
     cultivar_B = list(copy.copy(cultivar_A))
     mut_pos = []
     l = list(range(len(cultivar_A)))
@@ -145,13 +149,27 @@ def alignment(high_reads, low_reads, cultivar_A):
 
     print("\n")
     print("High-bulk")
-    display(high_df.iloc[:15,])
+    display(high_df)
     print("...")
     print("Low-bulk")
-    display(low_df.iloc[:15,])
+    display(low_df)
     print("...")
 
     return high_df, low_df
+
+def visualize_SNP_index(high_bulk_SNP_index, low_bulk_SNP_index):
+    sns.set()
+    row = 1
+    col = 2
+    fig, ax=plt.subplots(row, col, figsize=(12,4))
+    for i, SNP_index in enumerate([high_bulk_SNP_index, low_bulk_SNP_index]): 
+        x = SNP_index.index.values
+        y = SNP_index.SNP_index.values
+        color = ["green", "orange"]; titles = ["High bulk SNP-index", "Low bulk SNP-index"]
+        ax[i].scatter(x, y, color=color[i])
+        ax[i].set_title(titles[i], fontsize=16)
+        ax[i].set_ylim(-0.05, 1.05)
+    plt.show()
 
 def calculate_SNP_index(high_bulk_alignment_result, low_bulk_alignment_result, cultivar_A, cultivar_B):
     low_table_df = pd.DataFrame(list(cultivar_A))
@@ -192,21 +210,10 @@ def calculate_SNP_index(high_bulk_alignment_result, low_bulk_alignment_result, c
     
     high_table_df = high_table_df[high_table_df["cultivarA"] != high_table_df["cultivarB"]]
     low_table_df = low_table_df[low_table_df["cultivarA"] != low_table_df["cultivarB"]]
-    return high_table_df, low_table_df
 
-def visualize_SNP_index(high_bulk_SNP_index, low_bulk_SNP_index):
-    sns.set()
-    row = 1
-    col = 2
-    fig, ax=plt.subplots(row, col, figsize=(12,4))
-    for i, SNP_index in enumerate([high_bulk_SNP_index, low_bulk_SNP_index]): 
-        x = SNP_index.index.values
-        y = SNP_index.SNP_index.values
-        color = ["green", "orange"]; titles = ["High bulk SNP-index", "Low bulk SNP-index"]
-        ax[i].scatter(x, y, color=color[i])
-        ax[i].set_title(titles[i], fontsize=16)
-        ax[i].set_ylim(-0.05, 1.05)
-    plt.show()
+    visualize_SNP_index(high_table_df, low_table_df)
+
+    return high_table_df, low_table_df
 
 def calculate_delta_SNP_index(high_bulk_SNP_index, low_bulk_SNP_index):
     high_bulk_SNP_index["delta_SNP_index"] = high_bulk_SNP_index.SNP_index.values - low_bulk_SNP_index.SNP_index.values
