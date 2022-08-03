@@ -229,6 +229,7 @@ def visualize_delta_SNP_index(delta_SNP_index):
     plt.show()
 
 def check_results(delta_SNP_index):
+    SNP_effect = pd.read_csv("../SNP_effect.csv", index_col=0)
     row = 1
     col = 2
     fig, ax=plt.subplots(row, col, figsize=(12,4))
@@ -238,7 +239,7 @@ def check_results(delta_SNP_index):
     i = 0
     ax[i].scatter(x, y, color=color[i])
     ax[i].set_title(titles[i], fontsize=16)
-    ax[i].set_ylim(-0.05, 1.05)
+    ax[i].set_ylim(-1.05, 1.05)
     x = SNP_effect.Position.values
     y = SNP_effect.Simulated_SNP_effect.values
     i = 1
