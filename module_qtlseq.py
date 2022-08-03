@@ -225,19 +225,26 @@ def visualize_delta_SNP_index(delta_SNP_index):
     x = delta_SNP_index.index.values
     y = delta_SNP_index.delta_SNP_index.values
     plt.scatter(x, y)
-
-    tmp = delta_SNP_index[delta_SNP_index["delta_SNP_index"] >= 1]
-    x = tmp.index.values
-    y = tmp.delta_SNP_index.values
-    plt.scatter(x, y, color="red")
     plt.ylim(-1.05, 1.05)
     plt.show()
 
 def check_results(delta_SNP_index):
-    SNP_effect = pd.read_csv("../SNP_effect.csv", index_col=0)
-    SNP_effect = SNP_effect.set_index("Position")
-    SNP_effect["delta_SNP_index"] = delta_SNP_index.delta_SNP_index.values
-    return SNP_effect.reset_index().sort_values(by="Simulated_SNP_effect", ascending=False)
+    row = 1
+    col = 2
+    fig, ax=plt.subplots(row, col, figsize=(12,4))
+    color = ["blue", "red"]; titles = ["ΔSNP-index", "The effect of each SNP in simulation setting"]
+    x = delta_SNP_index.index.values
+    y = delta_SNP_index.delta_SNP_index.values
+    i = 0
+    ax[i].scatter(x, y, color=color[i])
+    ax[i].set_title(titles[i], fontsize=16)
+    ax[i].set_ylim(-0.05, 1.05)
+    x = SNP_effect.Position.values
+    y = SNP_effect.Simulated_SNP_effect.values
+    i = 1
+    ax[i].scatter(x, y, color=color[i])
+    ax[i].set_title(titles[i], fontsize=16)
+    plt.show()
 
 def get_yesterday_SNP_index():
     SNP_index = pd.read_csv("mutmap_dataset.txt", sep=',', header=0)
