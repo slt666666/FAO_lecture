@@ -134,6 +134,6 @@ def predict_customized_genotype(genotype, selected_chrs, prediction_model):
 
     print("\n")
     print("The cultivar of this genotype showed...")
-    print(trait, "=", '\033[31m'+"{}".format(predict_phenotype(pd.DataFrame(customized_genotype), prediction_model)[0])+'\033[0m')
+    print(trait, "=", '\033[1m'+"{}".format(predict_phenotype(pd.DataFrame(customized_genotype), prediction_model)[0])+'\033[0m')
     print("※", trait, "of Hitomebore is", predict_phenotype(pd.DataFrame(np.repeat(0, genotype.shape[0])), prediction_model)[0])
     
