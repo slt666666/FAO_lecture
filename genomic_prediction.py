@@ -105,12 +105,12 @@ def predict_customized_genotype(genotype, selected_chrs, prediction_model, trait
         ax.add_patch(r)
         plt.text(0, i*12000000, each_chr)
 
-    r = patches.Rectangle(xy=(30000000, -1*12000000), width=3000000*3, height=5000000, ec='gray', fc="orange", linewidth=3)
+    r = patches.Rectangle(xy=(35000000, -1*12000000), width=3000000*3, height=5000000, ec='gray', fc="orange", linewidth=3)
     ax.add_patch(r)
     plt.text(0, -1*12000000, "Hitomebore")
-    r = patches.Rectangle(xy=(65000000, -1*12000000), width=3000000*3, height=5000000, ec='gray', fc="blue", linewidth=3)
+    r = patches.Rectangle(xy=(70000000, -1*12000000), width=3000000*3, height=5000000, ec='gray', fc="blue", linewidth=3)
     ax.add_patch(r)
-    plt.text(42000000, -1*12000000, "Cultivar X")
+    plt.text(47000000, -1*12000000, "Cultivar X")
 
     for each_chr in selected_chrs:
         i = int(each_chr[3:]) - 1
