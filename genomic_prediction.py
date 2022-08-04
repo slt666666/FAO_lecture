@@ -108,7 +108,7 @@ def predict_customized_genotype(genotype, selected_chrs, prediction_model, trait
     r = patches.Rectangle(xy=(35000000, -1*12000000), width=3000000*3, height=5000000, ec='gray', fc="orange", linewidth=3)
     ax.add_patch(r)
     plt.text(0, -1*12000000, "Hitomebore")
-    r = patches.Rectangle(xy=(70000000, -1*12000000), width=3000000*3, height=5000000, ec='gray', fc="blue", linewidth=3)
+    r = patches.Rectangle(xy=(80000000, -1*12000000), width=3000000*3, height=5000000, ec='gray', fc="blue", linewidth=3)
     ax.add_patch(r)
     plt.text(47000000, -1*12000000, "Cultivar X")
 
