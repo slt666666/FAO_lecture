@@ -101,36 +101,26 @@ def predict_customized_genotype(genotype, selected_chrs, prediction_model, trait
     for i, each_chr in enumerate(genotype.chr.unique()):
         chr_genotype = genotype[genotype["chr"] == each_chr]
         end = chr_genotype.iloc[-1, :].pos
-        r = patches.Rectangle(xy=(18000000, i*12000000), width=end*3, height=5000000, ec='gray', fc="orange", linewidth=3)
+        r = patches.Rectangle(xy=(i*12000000, 18000000), width=5000000, height=-end*3, ec='gray', fc="orange", linewidth=3)
         ax.add_patch(r)
-        plt.text(0, i*12000000, each_chr)
+        if i == 0:
+        plt.text(-10000000, 20000000, "chr {}".format(i+1))
+        else:
+        plt.text(i*12000000, 20000000, str(i+1))
 
-    r = patches.Rectangle(xy=(35000000, -1*12000000), width=3000000*3, height=5000000, ec='gray', fc="orange", linewidth=3)
+    r = patches.Rectangle(xy=(75000000, -1*100000000), width=3000000*3, height=5000000, ec='gray', fc="orange", linewidth=3)
     ax.add_patch(r)
-    plt.text(0, -1*12000000, "Hitomebore")
-    r = patches.Rectangle(xy=(77000000, -1*12000000), width=3000000*3, height=5000000, ec='gray', fc="blue", linewidth=3)
+    plt.text(40000000, -1*100000000, "Hitomebore")
+    r = patches.Rectangle(xy=(117000000, -1*100000000), width=3000000*3, height=5000000, ec='gray', fc="blue", linewidth=3)
     ax.add_patch(r)
-    plt.text(47000000, -1*12000000, "Cultivar X")
+    plt.text(87000000, -1*100000000, "Cultivar X")
 
-    for each_chr in selected_chrs:
+    for each_chr in []:
         i = int(each_chr[3:]) - 1
         chr_genotype = genotype[genotype["chr"] == each_chr]
         end = chr_genotype.iloc[-1, :].pos
-        r = patches.Rectangle(xy=(18000000, i*12000000), width=end*3, height=5000000, ec='gray', fc="blue", linewidth=3)
+        r = patches.Rectangle(xy=(i*12000000, 18000000), width=5000000, height=-end*3, ec='gray', fc="blue", linewidth=3)
         ax.add_patch(r)
-
-    plt.text(0, 0, "chr01")
-
-    # for region in regions:
-    #     region_genotype = tmp_Inov_genotype[(tmp_Inov_genotype.index >= region[0]) & (tmp_Inov_genotype.index <= region[1])]
-    #     region_chr = region_genotype.chr.unique()[0]
-    #     pos_array = region_genotype.pos.str.split("_", expand=True).values.flatten()
-    #     pos_array = pos_array[pos_array != None].astype("int")
-    #     start = pos_array.min()
-    #     end = pos_array.max()
-    #     color = colors[region[2]]
-    #     r = patches.Rectangle(xy=(start*3, (int(region_chr[3:])-1)*12000000), width=(end-start)*3, height=5000000, ec="gray", fc=color)
-    #     ax.add_patch(r)
 
     plt.axis('scaled')
     plt.axis('off')
