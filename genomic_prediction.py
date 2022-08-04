@@ -104,9 +104,9 @@ def predict_customized_genotype(genotype, selected_chrs, prediction_model, trait
         r = patches.Rectangle(xy=(i*12000000, 18000000), width=5000000, height=-end*3, ec='gray', fc="orange", linewidth=3)
         ax.add_patch(r)
         if i == 0:
-        plt.text(-10000000, 20000000, "chr {}".format(i+1))
+            plt.text(-10000000, 20000000, "chr {}".format(i+1))
         else:
-        plt.text(i*12000000, 20000000, str(i+1))
+            plt.text(i*12000000, 20000000, str(i+1))
 
     r = patches.Rectangle(xy=(75000000, -1*100000000), width=3000000*3, height=5000000, ec='gray', fc="orange", linewidth=3)
     ax.add_patch(r)
