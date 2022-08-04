@@ -115,7 +115,7 @@ def predict_customized_genotype(genotype, selected_chrs, prediction_model, trait
     ax.add_patch(r)
     plt.text(87000000, -1*100000000, "Cultivar X")
 
-    for each_chr in []:
+    for each_chr in selected_chrs:
         i = int(each_chr[3:]) - 1
         chr_genotype = genotype[genotype["chr"] == each_chr]
         end = chr_genotype.iloc[-1, :].pos
