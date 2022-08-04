@@ -107,10 +107,10 @@ def predict_customized_genotype(genotype, selected_chrs, prediction_model, trait
 
     r = patches.Rectangle(xy=(30000000, -1*12000000), width=3000000*3, height=5000000, ec='gray', fc="orange", linewidth=3)
     ax.add_patch(r)
-    plt.text(0, -1*12000000, "cultivar_A")
+    plt.text(0, -1*12000000, "Hitomebore")
     r = patches.Rectangle(xy=(65000000, -1*12000000), width=3000000*3, height=5000000, ec='gray', fc="blue", linewidth=3)
     ax.add_patch(r)
-    plt.text(42000000, -1*12000000, "mutant")
+    plt.text(42000000, -1*12000000, "Cultivar X")
 
     for each_chr in selected_chrs:
         i = int(each_chr[3:]) - 1
@@ -145,6 +145,5 @@ def predict_customized_genotype(genotype, selected_chrs, prediction_model, trait
     print("\n")
     print("The cultivar of this genotype showed...")
     print(trait, "=", predict_phenotype(pd.DataFrame(customized_genotype), prediction_model)[0])
-    print("\n")
-    print("※", trait, "of cultivar A is", predict_phenotype(pd.DataFrame(np.repeat(0, genotype.shape[0])), prediction_model)[0])
+    print("※", trait, "of Hitomebore is", predict_phenotype(pd.DataFrame(np.repeat(0, genotype.shape[0])), prediction_model)[0])
     
