@@ -226,6 +226,8 @@ def visualize_delta_SNP_index(delta_SNP_index):
     y = delta_SNP_index.delta_SNP_index.values
     plt.scatter(x, y)
     plt.ylim(-1.05, 1.05)
+    plt.xlabel("SNP position")
+    plt.ylabel("ΔSNP-index")
     plt.show()
 
 def check_results(delta_SNP_index):
