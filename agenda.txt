@@ -1,0 +1,55 @@
+1. Mutmap
+    - Contents
+    - Basic knowledge (プログラム 3/21, テキスト・図 3/22)
+        - If you wanna know which genetic variants(/mutations) change phenotype ?
+          -> genotype infomration is required
+        - Read alignment & visualization
+        - SNP calling
+        - simple example (only 1 SNP == QTL)
+        - summary: SNP can be used as QTL identification
+    - Mutmap (プログラム 3/23, テキスト・図3/24-25)
+        - However, real situation (ex. Rice: Susceptible vs Resistance)
+        - try to compare Parents SNPs -> a lot of SNPs -> which SNP is causal loci?
+        -> Mutmap is one approach
+        - We will try to use Mutmap to identify causal genomic regions using real situation.
+        - 1st. make F2 population
+        -> Sequencing all samples required cost!
+        - 2nd. phenotyping & bulked Sequence
+        - Calculate SNP-index
+        - Visualize SNP-index
+        - Check results
+        - Mutmap Review
+        - Real dataset
+        -> sequence error, etc -> sliding window.
+        - Simulation?
+
+2. QTL-seq
+    - real situation (ex. Rice: Grain number?)
+    - compare parents SNPs -> basically a lot of SNPs affect
+    - so Mutmap? -> Mutmap doesn't work for quantitative traits
+    -> QTL-seq is one approach
+    - We will try to use Mutmap to identify causal genomic regions using real situation.
+    - 1st. make F2 population
+    -> c.f.) GWAS is one approach, but it have to sequencing all samples.
+    - 2nd. phenotyping & bulked 2 population.
+    - Calculate delta SNP-index
+    - Visualize SNP-index & delta SNP-index
+    - Check results
+    - QTL-seq review
+    - Real dataset
+    - Sliding window analysis
+    - Simulation?
+
+3. Genomic Prediction
+    - Mutmap & QTL-seq is cost effective methods, but just introduce high cost approach
+    - Mutmap & QTL-seq identified QTLs with significant effect
+    - c.f.) GWAS can identify QTLs across whole genome
+    - For Genome breeding, we wanna know the effect of QTLs and multiple traits.
+    -> Genomic prediction model is one approach
+    -> if GP model created, we can estimate effect of genomic regions for multiple traits
+    -> You can customize phenotypes. 
+    - But required huge datasets like NAM, MAGIC...etc
+    - Sequening & phenotyping
+    - Make Prediction model (ex. Liner model)
+    - Visualize locus effect
+    - Play with GP
