@@ -1,0 +1,13 @@
+#Summary
+#Generated on	Tue Mar 26 13:10:32 JST 2024
+#Version	5
+chroms	1
+bases	16300
+defined	300
+undefined	16000
+contigs	1
+scaffolds	1
+interpad	500
+source	/mnt/c/Users/toshi/Desktop/workspace/FAO_lecture/FAO_2024/data/CultivarB.fa
+bytes	307
+last modified	1711424119858
