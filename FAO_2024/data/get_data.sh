@@ -25,4 +25,5 @@ wget https://raw.githubusercontent.com/slt666666/FAO_lecture/main/FAO_2024/data/
 wget https://raw.githubusercontent.com/slt666666/FAO_lecture/main/FAO_2024/data/reads/bulked_read2.fastq 2>/dev/null
 cd ../
 mkdir simulation
+cd simulation
 wget https://raw.githubusercontent.com/slt666666/FAO_lecture/main/FAO_2024/data/simulation/mutations.fa 2>/dev/null

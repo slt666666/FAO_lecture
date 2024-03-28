@@ -1,4 +1,7 @@
+import os
+import random
 import pandas as pd
+import numpy as np
 import igv_notebook
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -41,3 +44,36 @@ def visualize_SNP_index(vcf_data):
     plt.axhline(y=0.5, color="red")
     plt.ylim(-0.1, 1.1)
     plt.show()
+
+def simulate_fastq(F2_num, read_num):
+    with open("genome/CultivarB.fa", mode="r") as f:
+        reference = f.readlines()[1]
+    with open("simulation/mutations.fa", mode="r") as f:
+        mutation = f.readlines()[1]
+
+    F2_genotype = [list(reference)]
+    F2_seq = []
+    for i in range(F2_num):
+        recom_points = np.sort([random.randint(0, 9999) for i in range(10)])
+        if random.randint(0, 9999) > 5000:
+            new_geno = reference[:recom_points[0]]+mutation[recom_points[0]:recom_points[1]]+reference[recom_points[1]:recom_points[2]]+mutation[recom_points[2]:recom_points[3]]+\
+            reference[recom_points[3]:recom_points[4]]+mutation[recom_points[4]:recom_points[5]]+reference[recom_points[5]:recom_points[6]]+mutation[recom_points[6]:recom_points[7]]+\
+            reference[recom_points[7]:recom_points[8]]+mutation[recom_points[8]:recom_points[9]]+reference[recom_points[9]:]
+        else:
+            new_geno = mutation[:recom_points[0]]+reference[recom_points[0]:recom_points[1]]+mutation[recom_points[1]:recom_points[2]]+reference[recom_points[2]:recom_points[3]]+\
+            mutation[recom_points[3]:recom_points[4]]+reference[recom_points[4]:recom_points[5]]+mutation[recom_points[5]:recom_points[6]]+reference[recom_points[6]:recom_points[7]]+\
+            mutation[recom_points[7]:recom_points[8]]+reference[recom_points[8]:recom_points[9]]+mutation[recom_points[9]:]
+        F2_genotype.append(list(new_geno))
+        F2_seq.append(new_geno)
+
+    F2_genotype = pd.DataFrame(F2_genotype)
+    F2_genotype = F2_genotype.loc[:, (F2_genotype == F2_genotype.iloc[0, :]).sum() != F2_num+1]
+
+    with open("simulation/F2_genome.fa", "w") as f:
+        for i, key in enumerate((F2_genotype.iloc[1:, 19] != F2_genotype.iloc[0, 19]).values):
+            if key:
+                f.write(f">sample{i}\n")
+                f.write(F2_seq[i])
+                f.write("\n")
+
+    os.system(f'wgsim -e 0 -r 0 -R 0 -X 0 -d 300 -1 150 -2 150 -N {read_num} simulation/F2_genome.fa simulation/bulked_1.fastq simulation/bulked_2.fastq')
