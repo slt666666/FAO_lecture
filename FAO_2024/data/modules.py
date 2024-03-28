@@ -35,7 +35,7 @@ def calc_SNP_index(vcf):
     vcf_data.columns = ["position", "ref", "mutant", "mutant base", "total reads", "SNP index"]
     return vcf_data
 
-def visualize_SNP_index(vcf_data)
+def visualize_SNP_index(vcf_data):
     plt.figure(figsize=(6, 2))
     sns.scatterplot(x=vcf_data.position, y=vcf_data["SNP index"], color="black")
     plt.axhline(y=0.5, color="red")
