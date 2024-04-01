@@ -38,6 +38,29 @@ def calc_SNP_index(vcf):
     vcf_data.columns = ["position", "ref", "mutant", "mutant base", "total reads", "SNP index"]
     return vcf_data
 
+def calc_delta_SNP_index(vcf):
+    vcf = pd.read_csv(vcf, comment="#", sep="\t", header=None)
+    vcf_data = []
+    for i in range(vcf.shape[0]):
+        position = vcf.iloc[i, 1]
+        reference =  vcf.iloc[i, 3]
+        mutation =  vcf.iloc[i, 4]
+        low_read_num = vcf.iloc[i, 9][vcf.iloc[i, 9].rfind(":")+1:].split(",")
+        low_ref_reads = int(low_read_num[0])
+        low_mut_reads = int(low_read_num[1])
+        low_total_reads = low_ref_reads+low_mut_reads
+        low_SNP_index = low_mut_reads / low_total_reads
+        high_read_num = vcf.iloc[i, 10][vcf.iloc[i, 10].rfind(":")+1:].split(",")
+        high_ref_reads = int(high_read_num[0])
+        high_mut_reads = int(high_read_num[1])
+        high_total_reads = high_ref_reads+high_mut_reads
+        high_SNP_index = high_mut_reads / high_total_reads
+        delta = high_SNP_index - low_SNP_index
+        vcf_data.append([position, reference, mutation, low_SNP_index, high_SNP_index, delta])
+    vcf_data = pd.DataFrame(vcf_data)
+    vcf_data.columns = ["position", "ref", "mutant", "low SNP index", "high SNP index", "delta SNP index"]
+    return vcf_data
+
 def visualize_SNP_index(vcf_data):
     plt.figure(figsize=(6, 2))
     sns.scatterplot(x=vcf_data.position, y=vcf_data["SNP index"], color="black")
