@@ -68,6 +68,27 @@ def visualize_SNP_index(vcf_data):
     plt.ylim(-0.1, 1.1)
     plt.show()
 
+def visualize_delta_SNP_index(vcf_data):
+    plt.figure(figsize=(6, 2))
+    sns.scatterplot(x=vcf_data.position, y=vcf_data["low SNP index"], color="orange")
+    plt.axhline(y=0.5, color="red")
+    plt.ylim(-0.1, 1.1)
+    plt.xlabel("")
+    plt.tick_params(labelbottom=False, labelleft=True, labelright=False, labeltop=False)
+    plt.show()
+    plt.figure(figsize=(6, 2))
+    sns.scatterplot(x=vcf_data.position, y=vcf_data["high SNP index"], color="green")
+    plt.axhline(y=0.5, color="red")
+    plt.ylim(-0.1, 1.1)
+    plt.xlabel("")
+    plt.tick_params(labelbottom=False, labelleft=True, labelright=False, labeltop=False)
+    plt.show()
+    plt.figure(figsize=(6, 2))
+    sns.scatterplot(x=vcf_data.position, y=vcf_data["delta SNP index"], color="black")
+    plt.axhline(y=0, color="red")
+    plt.ylim(-1.1, 1.1)
+    plt.show()
+
 def simulate_fastq(F2_num, read_num):
     with open("genome/CultivarB.fa", mode="r") as f:
         reference = f.readlines()[1]
