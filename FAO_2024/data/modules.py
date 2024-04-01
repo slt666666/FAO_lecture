@@ -121,3 +121,40 @@ def simulate_fastq(F2_num, read_num):
                 f.write("\n")
 
     os.system(f'wgsim -e 0 -r 0 -R 0 -X 0 -d 300 -1 150 -2 150 -N {read_num} simulation/F2_genome.fa simulation/bulked_1.fastq simulation/bulked_2.fastq')
+
+def sliding_window(SNP_index, window_size=1 * 1000 * 1000, step_size = 0.2 * 1000 * 1000):
+    chrom_size = 23207287
+
+    x_win = []
+    x = []
+    y_win = []
+
+    start = 1
+    end  = start + window_size - 1
+
+    while True:
+        sub = SNP_index[ (SNP_index["position"]>=start) & (SNP_index["position"]<=end) ]
+        p = sub["position"].mean()
+        s = sub["SNP index"].mean()
+        x_win.append(p)
+        x.append([start, end])
+        y_win.append(s)
+
+        start = start + step_size
+        end  = end  + step_size
+
+        if end > chrom_size:
+            break
+
+    result = pd.DataFrame({"Window":x, "average SNP index":y_win})
+
+    plt.figure(figsize=[6,2])
+    plt.scatter(SNP_index["position"], SNP_index["SNP index"])
+    plt.plot(x_win, y_win, color="red")
+    plt.title('SNP-index on chromosome 10', fontsize=12)
+    plt.xlabel('Position (x 10 Mb)', fontsize=10)
+    plt.ylabel('SNP-index', fontsize=10)
+    # plt.tick_params(labelbottom=False, labelleft=True, labelright=False, labeltop=False)
+    plt.show()
+
+    return result
