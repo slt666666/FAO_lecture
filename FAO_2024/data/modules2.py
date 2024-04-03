@@ -38,8 +38,10 @@ def predict_phenotype(test_genotype, prediction_model):
 
 def predict_progeny_phenotype(Line1, Line2, progeny, phenotype, genotype, prediction_model):
 
-    print(f"Grain number of {Line1} is {phenotype.loc[phenotype.Line == Line1, "Grain_number"]}")
-    print(f"Grain number of {Line2} is {phenotype.loc[phenotype.Line == Line2, "Grain_number"]}")
+    Line1_pheno = phenotype.loc[phenotype.Line == Line1, "Grain_number"]
+    Line2_pheno = phenotype.loc[phenotype.Line == Line2, "Grain_number"]
+    print(f"Grain number of {Line1} is {Line1_pheno}")
+    print(f"Grain number of {Line2} is {Line2_pheno}")
 
     print("If we cross {} & {}, the phenotype of F2 population may be...".format(Line1, Line2))
 
