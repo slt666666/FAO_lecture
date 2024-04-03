@@ -25,7 +25,7 @@ def linear_model(X, y):
 
 def check_accuracy(model, X, y):
     y_test_preds = model.predict(X)
-    plt.figure(figsize=[6,6])
+    plt.figure(figsize=[4,4])
     plt.scatter(y.Grain_number, y_test_preds)
     plt.xlabel("Observed phenotype values")
     plt.ylabel("Predicted phenotype values")
@@ -38,8 +38,8 @@ def predict_phenotype(test_genotype, prediction_model):
 
 def predict_progeny_phenotype(Line1, Line2, progeny, phenotype, genotype, prediction_model):
 
-    Line1_pheno = phenotype.loc[phenotype.Line == Line1, "Grain_number"]
-    Line2_pheno = phenotype.loc[phenotype.Line == Line2, "Grain_number"]
+    Line1_pheno = phenotype.loc[phenotype.Line == Line1, "Grain_number"].values[0]
+    Line2_pheno = phenotype.loc[phenotype.Line == Line2, "Grain_number"].values[0]
     print(f"Grain number of {Line1} is {Line1_pheno}")
     print(f"Grain number of {Line2} is {Line2_pheno}")
 
@@ -68,6 +68,6 @@ def predict_progeny_phenotype(Line1, Line2, progeny, phenotype, genotype, predic
 
     pred = predict_phenotype(progenies_genotype, prediction_model)
     sns.set()
-    plt.figure(figsize=[6,6])
+    plt.figure(figsize=[4,4])
     plt.hist(pred)
     plt.show()
