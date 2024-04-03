@@ -27,4 +27,5 @@ def check_accuracy(model, X, y):
     plt.scatter(y.Grain_number, y_test_preds)
     plt.xlabel("Observed phenotype values")
     plt.ylabel("Predicted phenotype values")
-    plt.text(0.01, 0.01, "correlation coefficient: {}".format(np.corrcoef(y.Grain_number, y_test_preds)[0, 1]), fontsize="xx-large")
+    plt.title("correlation coefficient: {}".format(np.corrcoef(y.Grain_number, y_test_preds)[0, 1]), fontsize="large")
+    plt.show()
