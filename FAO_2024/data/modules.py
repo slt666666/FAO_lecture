@@ -5,6 +5,7 @@ import numpy as np
 import igv_notebook
 import matplotlib.pyplot as plt
 import seaborn as sns
+from sklearn.linear_model import ElasticNet
 sns.set()
 
 def RefTrack(track_info, locus=None):
@@ -158,3 +159,25 @@ def sliding_window(SNP_index, window_size=1 * 1000 * 1000, step_size = 0.2 * 100
     plt.show()
 
     return result
+
+def linear_model(X, y):
+    model = ElasticNet(alpha=0.3, l1_ratio=0.7)
+    model = model.fit(X, y["Grain_number"])
+    equation = "y = "
+    k = 0
+    for i, j in enumerate(model.coef_):
+        if j == 0:
+            pass
+        else:
+            k += 1
+            equation += "SNP{}×{} + ".format(str(i+1), str(j))
+    equation += str(model.intercept_)
+    print(equation)
+    return model
+
+def check_accuracy(model, X, y):
+    y_test_preds = model.predict(X)
+    plt.scatter(y.Grain_number, y_test_preds)
+    plt.xlabel("Observed phenotype values")
+    plt.ylabel("Predicted phenotype values")
+    print("correlation coefficient: {}".format(np.corrcoef(y_test.Grain_number, y_test_preds)[0, 1]))
