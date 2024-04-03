@@ -10,7 +10,7 @@ sns.set()
 def linear_model(X, y):
     model = ElasticNet(alpha=0.3, l1_ratio=0.7)
     model = model.fit(X, y["Grain_number"])
-    equation = "y = "
+    equation = "Grain number = "
     k = 0
     for i, j in enumerate(model.coef_):
         if j == 0:
