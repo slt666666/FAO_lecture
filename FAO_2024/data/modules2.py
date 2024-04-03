@@ -31,6 +31,10 @@ def check_accuracy(model, X, y):
     plt.title("correlation coefficient: {}".format(np.corrcoef(y.Grain_number, y_test_preds)[0, 1]), fontsize="large")
     plt.show()
 
+def predict_phenotype(test_genotype, prediction_model):
+    y_test_pred = prediction_model.predict(test_genotype.T.fillna(1))
+    return y_test_pred
+
 def predict_progeny_phenotype(Line1, Line2, progeny, genotype, prediction_model):
 
     print("If we cross {} & {}, the phenotype of F2 population may be...".format(Line1, Line2))
