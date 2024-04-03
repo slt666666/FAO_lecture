@@ -91,10 +91,10 @@ def predict_customized_genotype(genotype, regions, prediction_model):
 
     r = patches.Rectangle(xy=(65000000, -1*120000000), width=3000000*3, height=5000000, ec='gray', fc="orange", linewidth=3)
     ax.add_patch(r)
-    plt.text(20000000, -1*120000000, "Hitomebore")
-    r = patches.Rectangle(xy=(117000000, -1*120000000), width=3000000*3, height=5000000, ec='gray', fc="blue", linewidth=3)
+    plt.text(29000000, -1*120000000, "Cutivar A")
+    r = patches.Rectangle(xy=(142000000, -1*120000000), width=3000000*3, height=5000000, ec='gray', fc="blue", linewidth=3)
     ax.add_patch(r)
-    plt.text(80000000, -1*120000000, "REXMONT")
+    plt.text(80000000, -1*120000000, "Another Cultivar")
 
     for region in regions:
         i = int(region[0][3:]) - 1
@@ -128,6 +128,6 @@ def predict_customized_genotype(genotype, regions, prediction_model):
         customized_genotype[genotype.chr.isin([selected_chr]) & (genotype.pos >= selected_start) & (genotype.pos <= selected_end)] = 2
     
     print("\n")
-    print("The cultivar of this genotype showed...")
+    print("The cultivar of this new genotype showed...")
     print(trait, "=", '\033[1m'+"{}".format(predict_phenotype(pd.DataFrame(customized_genotype), prediction_model)[0])+'\033[0m')
-    print("※", trait, "of Hitomebore is", '\033[1m'+"{}".format(predict_phenotype(pd.DataFrame(np.repeat(0, genotype.shape[0])), prediction_model)[0])+'\033[0m')
+    print("※", trait, "of Cultivar A is", '\033[1m'+"{}".format(predict_phenotype(pd.DataFrame(np.repeat(0, genotype.shape[0])), prediction_model)[0])+'\033[0m')
