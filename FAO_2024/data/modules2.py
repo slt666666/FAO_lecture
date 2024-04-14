@@ -89,12 +89,12 @@ def predict_customized_genotype(genotype, regions, prediction_model):
         else:
             plt.text(i*16000000, 2000000, str(i+1))
 
-    r = patches.Rectangle(xy=(65000000, -1*120000000), width=3000000*3, height=5000000, ec='gray', fc="orange", linewidth=3)
+    r = patches.Rectangle(xy=(65000000, -1*130000000), width=3000000*3, height=5000000, ec='gray', fc="orange", linewidth=3)
     ax.add_patch(r)
-    plt.text(29000000, -1*120000000, "Cutivar A")
-    r = patches.Rectangle(xy=(142000000, -1*120000000), width=3000000*3, height=5000000, ec='gray', fc="blue", linewidth=3)
+    plt.text(29000000, -1*130000000, "Cutivar A")
+    r = patches.Rectangle(xy=(142000000, -1*130000000), width=3000000*3, height=5000000, ec='gray', fc="blue", linewidth=3)
     ax.add_patch(r)
-    plt.text(80000000, -1*120000000, "Another Cultivar")
+    plt.text(80000000, -1*130000000, "Another Cultivar")
 
     for region in regions:
         i = int(region[0][3:]) - 1
