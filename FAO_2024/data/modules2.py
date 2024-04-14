@@ -107,7 +107,7 @@ def predict_customized_genotype(genotype, regions, prediction_model):
             print("start sould be larger than 0.")
             break
         elif region[2] > end:
-            regions[2] = end
+            region[2] = end
         else:
             r = patches.Rectangle(xy=(i*16000000, -3*region[1]), width=6000000, height=-(region[2] - region[1])*3, ec='gray', fc="blue", linewidth=3)
             ax.add_patch(r)
