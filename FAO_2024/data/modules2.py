@@ -130,5 +130,11 @@ def predict_customized_genotype(genotype, regions, prediction_model):
     
     print("\n")
     print("The cultivar of this new genotype showed...")
-    print(trait, "=", '\033[1m'+"{}".format(predict_phenotype(pd.DataFrame(customized_genotype), prediction_model)[0])+'\033[0m')
-    print("※", trait, "of Cultivar A is", '\033[1m'+"{}".format(predict_phenotype(pd.DataFrame(np.repeat(0, genotype.shape[0])), prediction_model)[0])+'\033[0m')
+    print("Grain number", "=", '\033[1m'+"{}".format(predict_phenotype(pd.DataFrame(customized_genotype), prediction_model)[0])+'\033[0m')
+    print("※", "Grain number", "of Cultivar A is", '\033[1m'+"{}".format(predict_phenotype(pd.DataFrame(np.repeat(0, genotype.shape[0])), prediction_model)[0])+'\033[0m')
+
+# regions = [['chr01', 0, 45000000], ['chr02', 0, 40000000], ['chr03', 0, 40000000], ['chr04', 0, 40000000], ['chr05', 0, 40000000],['chr06', 0, 40000000], ['chr07', 0, 40000000], ['chr08', 0, 40000000], ['chr09', 0, 40000000], ['chr10', 0, 40000000], ['chr11', 0, 40000000], ['chr12', 0, 40000000]]
+# regions = [['chr01', 0, 6000000], ['chr02', 0, 10000000], ['chr03', 8000000, 10000000],['chr05', 20000000, 25000000],['chr06', 19000000, 30000000],['chr07', 23000000, 30000000],['chr08', 23000000, 30000000],['chr11', 22000000, 30000000]]
+#
+# NAM_160	NAM_589
+# NAM_566	NAM_681
